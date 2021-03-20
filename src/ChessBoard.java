@@ -100,7 +100,7 @@ public class ChessBoard {
         ArrayList<Integer> indices;
         indices = black_pawn_calculate_move(x, y);
         if (indices.get(0) == -1) {
-            System.out.println("@@@@"); ////// ???????
+            System.out.println("resign"); ////// ???????
         } else {
             if (indices.get(0) != 7) {
                 board[indices.get(0)][indices.get(1)] = board[x][y];
@@ -109,9 +109,10 @@ public class ChessBoard {
                         new Piece("black", 'q', 9));
             }
             board[x][y] = new Square(x, y);
-            System.out
-                    .println("move " + (char) (y + 97) + (8 - x) + (char) (indices.get(1) + 97) + (8 - indices.get(0)));
+            System.out.println("move " + (char) (y + 97) + (8 - x) +
+                    (char) (indices.get(1) + 97) + (8 - indices.get(0)));
         }
+        System.out.flush();
         return indices;
     }
 
@@ -178,7 +179,7 @@ public class ChessBoard {
         ArrayList<Integer> indices;
         indices = white_pawn_calculate_move(x, y);
         if (indices.get(0) == -1) {
-            System.out.println("@@@@"); ////// ???????
+            System.out.println("resign"); ////// ???????
         } else {
             if (indices.get(0) != 0) {
                 board[indices.get(0)][indices.get(1)] = board[x][y];
@@ -187,9 +188,10 @@ public class ChessBoard {
                         new Piece("white", 'q', 9));
             }
             board[x][y] = new Square(x, y);
-            System.out
-                    .println("move " + (char) (y + 97) + (8 - x) + (char) (indices.get(1) + 97) + (8 - indices.get(0)));
+            System.out.println("move " + (char) (y + 97) + (8 - x) +
+                    (char) (indices.get(1) + 97) + (8 - indices.get(0)));
         }
+        System.out.flush();
         return indices;
     }
 
@@ -219,34 +221,37 @@ public class ChessBoard {
         return indices;
     }
 
-    public Square[][] move_from_to(Piece piece, int z, int w, Square[][] board) {
-        board[z][w] = new Square(z, w, piece);
-        return board;
-    }
+//    public Square[][] move_from_to(Piece piece, int z, int w, Square[][] board) {
+//        board[z][w] = new Square(z, w, piece);
+//        return board;
+//    }
 
     public static void main(String[] args) {
         ChessBoard c1 = new ChessBoard();
         c1.fill_board();
         String engine_side = null;
         String xboard_side = null;
-        ArrayList<Integer> indices;
+        ArrayList<Integer> indices = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
 
         while (true) {
             String command = scan.nextLine();
             if (command.compareTo("xboard") == 0) {
                 continue;
-            } else if (command.compareTo("new") == 0) {
+            } else if(command.compareTo("new") == 0) {
                 c1.fill_board();
                 engine_side = "black";
                 xboard_side = "white";
-            } else if (command.startsWith("protover")) {
+            } else if(command.startsWith("protover")) {
                 System.out.println("feature sigint=0 san=0 name=\"Rosoga BOT\" done=1");
                 System.out.flush();
-            } else if (command.compareTo("force") == 0) {
+            } else if(command.compareTo("force") == 0) {
                 continue;
-            } else if (command.compareTo("go") == 0) {
-                if (xboard_side.compareTo("black") == 0) {
+            } else if(command.compareTo("go") == 0) {
+                String temp = engine_side;
+                engine_side = xboard_side;
+                xboard_side = temp;
+                if (engine_side.compareTo("black") == 0) {
                     indices = c1.randomPawn("black", c1.board);
                     indices = c1.black_pawn_move(indices.get(0), indices.get(1));
                 } else {
@@ -254,10 +259,19 @@ public class ChessBoard {
                     indices = c1.white_pawn_move(indices.get(0), indices.get(1));
                 }
                 // Verific daca primesc o mutare valida de la xboard ---a2a3
-            } else if ((command.charAt(1) >= '0') && (command.charAt(1) <= '8')) {
-                c1.board = c1.move_from_to(c1.board[8 - command.charAt(1)][command.charAt(0) - 97].piece,
-                        (8 - command.charAt(3)), (command.charAt(2) - 97), c1.board);
-
+            } else if((command.charAt(1) >= '1') && (command.charAt(1) <= '8')) {
+                int start_x = 8 - command.charAt(1);
+                int start_y = command.charAt(0) - 97;
+                int end_x = 8 - command.charAt(3);
+                int end_y = command.charAt(2) - 97;
+                c1.board[end_x][end_y] = c1.board[start_x][start_y];
+                c1.board[start_x][start_y] = new Square(start_x, start_y);
+                if(indices.get(0) == end_x && indices.get(1) == end_y) {
+                    System.out.println("resign");
+                    System.out.flush();
+                }
+            } else if(command.compareTo("quit") == 0) {
+                break;
             }
 
         }
