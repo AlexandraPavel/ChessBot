@@ -254,11 +254,14 @@ public class ChessBoard {
                     indices = c1.white_pawn_move(indices.get(0), indices.get(1));
                 }
                 // Verific daca primesc o mutare valida de la xboard ---a2a3
-            } else if ((command.charAt(1) >= '0') && (command.charAt(1) <= '8')) {
+             } else if ((command.charAt(1) >= '0') && (command.charAt(1) <= '8')) {
                 c1.board = c1.move_from_to(c1.board[8 - command.charAt(1)][command.charAt(0) - 97].piece,
                         (8 - command.charAt(3)), (command.charAt(2) - 97), c1.board);
-
             }
+            else if(command.compareTo("quit") == 0) {
+                break;
+            }
+
 
         }
 
