@@ -1,96 +1,280 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
 public class ChessBoard {
-    int[][] board;
+    Square[][] board;
 
     public ChessBoard() {
-        board = new int[8][8];
+        board = new Square[8][8];
     }
 
     public void fill_board() {
-        for(int i = 0; i < 8; i++) {
-            board[0][i] = 1;
-            board[1][i] = 1;
-            board[6][i] = 1;
-            board[7][i] = 1;
+        board[0][0] = new Square(0, 0, new Piece("black", 'r', 5));
+        board[0][1] = new Square(0, 1, new Piece("black", 'n', 3));
+        board[0][2] = new Square(0, 2, new Piece("black", 'b', 3));
+        board[0][3] = new Square(0, 3, new Piece("black", 'q', 9));
+        board[0][4] = new Square(0, 4, new Piece("black", 'k', Integer.MAX_VALUE));
+        board[0][5] = new Square(0, 5, new Piece("black", 'b', 3));
+        board[0][6] = new Square(0, 6, new Piece("black", 'n', 3));
+        board[0][7] = new Square(0, 7, new Piece("black", 'r', 5));
+        for (int i = 0; i < 8; i++) {
+            board[1][i] = new Square(1, i, new Piece("black", 'p', 1));
+            board[6][i] = new Square(6, i, new Piece("white", 'p', 1));
         }
-    }
-
-    public void white_pawn_moves_forward1(int x, int y, int x_prime, int y_prime) {
-        if(board[x_prime][y_prime] == 0) {
-            if(x_prime == 7) {
-                board[x_prime][y_prime] = 10;
-            } else {
-                board[x_prime][y_prime] = 1;
+        board[7][0] = new Square(7, 0, new Piece("white", 'r', 5));
+        board[7][1] = new Square(7, 1, new Piece("white", 'n', 3));
+        board[7][2] = new Square(7, 2, new Piece("white", 'b', 3));
+        board[7][3] = new Square(7, 3, new Piece("white", 'q', 9));
+        board[7][4] = new Square(7, 4, new Piece("white", 'k', Integer.MAX_VALUE));
+        board[7][5] = new Square(7, 5, new Piece("white", 'b', 3));
+        board[7][6] = new Square(7, 6, new Piece("white", 'n', 3));
+        board[7][7] = new Square(7, 7, new Piece("white", 'r', 5));
+        for (int i = 2; i < 6; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Square(i, j);
             }
-            board[x][y] = 0;
-        } else {
-            System.out.println("Move 1 square is invalid");
         }
     }
 
-    public void white_pawn_moves_forward2(int x, int y, int x_prime, int y_prime) {
-        if(board[x_prime][y_prime] == 0 && board[x_prime - 1][y_prime] == 0) {
-            board[x_prime][y_prime] = 1;
-            board[x][y] = 0;
+    public ArrayList<Integer> black_pawn_move_forward(int x, int y) {
+        ArrayList<Integer> indices = new ArrayList<>();
+        if (x == 1 && board[x + 1][y].piece.type == 'x' && board[x + 2][y].piece.type == 'x') {
+            indices.add(x + 2);
+            indices.add(y);
+        } else if (board[x + 1][y].piece.type == 'x') {
+            indices.add(x + 1);
+            indices.add(y);
         } else {
-            System.out.println("Move 2 squares is invalid");
+            indices.add(-1);
+            indices.add(-1);
         }
+        return indices;
     }
 
-    public void white_pawn_takes(int x, int y, int x_prime, int y_prime) {
-        if(board[x_prime][y_prime] != 0 && Math.abs(y_prime - y) == 1) {
-            if(x_prime == 7) {
-                board[x_prime][y_prime] = 10;
+    public ArrayList<Integer> black_pawn_calculate_move(int x, int y) {
+        ArrayList<Integer> indices = new ArrayList<>();
+        if (x == 7) {
+            indices.add(-1);
+            indices.add(-1);
+            return indices;
+        }
+        if (y == 0) {
+            if (board[x + 1][y + 1].piece.type != 'x') {
+                indices.add(x + 1);
+                indices.add(y + 1);
             } else {
-                board[x_prime][y_prime] = 1;
+                indices = black_pawn_move_forward(x, y);
             }
-            board[x][y] = 0;
-        } else {
-            System.out.println("Take move is invalid");
+            return indices;
         }
+        if (y == 7) {
+            if (board[x + 1][y - 1].piece.type != 'x') {
+                indices.add(x + 1);
+                indices.add(y - 1);
+            } else {
+                indices = black_pawn_move_forward(x, y);
+            }
+            return indices;
+        }
+        if (board[x + 1][y - 1].piece.type != 'x' && board[x + 1][y + 1].piece.type != 'x') {
+            indices.add(x + 1);
+            if (board[x + 1][y - 1].piece.score > board[x + 1][y + 1].piece.score) {
+                indices.add(y - 1);
+            } else {
+                indices.add(y + 1);
+            }
+        } else if (board[x + 1][y - 1].piece.type != 'x') {
+            indices.add(x + 1);
+            indices.add(y - 1);
+        } else if (board[x + 1][y + 1].piece.type != 'x') {
+            indices.add(x + 1);
+            indices.add(y + 1);
+        } else {
+            indices = black_pawn_move_forward(x, y);
+        }
+        return indices;
     }
 
-    public void white_pawn_moves(int x, int y, int x_prime, int y_prime) {
-        int nr = Math.abs(x_prime - x);
-        int nr2 = Math.abs(y_prime - y);
-        if(nr == 1 && y == y_prime) {
-            white_pawn_moves_forward1(x, y, x_prime, y_prime);
-            return;
+    public ArrayList<Integer> black_pawn_move(int x, int y) {
+        ArrayList<Integer> indices;
+        indices = black_pawn_calculate_move(x, y);
+        if (indices.get(0) == -1) {
+            System.out.println("@@@@"); ////// ???????
+        } else {
+            if (indices.get(0) != 7) {
+                board[indices.get(0)][indices.get(1)] = board[x][y];
+            } else {
+                board[indices.get(0)][indices.get(1)] = new Square(indices.get(0), indices.get(1),
+                        new Piece("black", 'q', 9));
+            }
+            board[x][y] = new Square(x, y);
+            System.out
+                    .println("move " + (char) (y + 97) + (8 - x) + (char) (indices.get(1) + 97) + (8 - indices.get(0)));
         }
-        if(nr == 2 && y == y_prime && x == 1) {
-            white_pawn_moves_forward2(x, y, x_prime, y_prime);
-            return;
+        return indices;
+    }
+
+    public ArrayList<Integer> white_pawn_move_forward(int x, int y) {
+        ArrayList<Integer> indices = new ArrayList<>();
+        if (x == 6 && board[x - 1][y].piece.type == 'x' && board[x - 2][y].piece.type == 'x') {
+            indices.add(x - 2);
+            indices.add(y);
+        } else if (board[x - 1][y].piece.type == 'x') {
+            indices.add(x - 1);
+            indices.add(y);
+        } else {
+            indices.add(-1);
+            indices.add(-1);
         }
-        if(nr == 1 && nr2 == 1) {
-            white_pawn_takes(x, y, x_prime, y_prime);
-            return;
+        return indices;
+    }
+
+    public ArrayList<Integer> white_pawn_calculate_move(int x, int y) {
+        ArrayList<Integer> indices = new ArrayList<>();
+        if (x == 0) {
+            indices.add(-1);
+            indices.add(-1);
+            return indices;
         }
-        System.out.println("Move is invalid");
+        if (y == 0) {
+            if (board[x - 1][y + 1].piece.type != 'x') {
+                indices.add(x - 1);
+                indices.add(y + 1);
+            } else {
+                indices = white_pawn_move_forward(x, y);
+            }
+            return indices;
+        }
+        if (y == 7) {
+            if (board[x - 1][y - 1].piece.type != 'x') {
+                indices.add(x - 1);
+                indices.add(y - 1);
+            } else {
+                indices = white_pawn_move_forward(x, y);
+            }
+            return indices;
+        }
+        if (board[x - 1][y - 1].piece.type != 'x' && board[x - 1][y + 1].piece.type != 'x') {
+            indices.add(x - 1);
+            if (board[x - 1][y + 1].piece.score > board[x - 1][y - 1].piece.score) {
+                indices.add(y + 1);
+            } else {
+                indices.add(y - 1);
+            }
+        } else if (board[x - 1][y - 1].piece.type != 'x') {
+            indices.add(x - 1);
+            indices.add(y - 1);
+        } else if (board[x - 1][y + 1].piece.type != 'x') {
+            indices.add(x - 1);
+            indices.add(y + 1);
+        } else {
+            indices = white_pawn_move_forward(x, y);
+        }
+        return indices;
+    }
+
+    public ArrayList<Integer> white_pawn_move(int x, int y) {
+        ArrayList<Integer> indices;
+        indices = white_pawn_calculate_move(x, y);
+        if (indices.get(0) == -1) {
+            System.out.println("@@@@"); ////// ???????
+        } else {
+            if (indices.get(0) != 0) {
+                board[indices.get(0)][indices.get(1)] = board[x][y];
+            } else {
+                board[indices.get(0)][indices.get(1)] = new Square(indices.get(0), indices.get(1),
+                        new Piece("white", 'q', 9));
+            }
+            board[x][y] = new Square(x, y);
+            System.out
+                    .println("move " + (char) (y + 97) + (8 - x) + (char) (indices.get(1) + 97) + (8 - indices.get(0)));
+        }
+        return indices;
     }
 
     public String toString() {
         String result = "";
-        for(int i = 0; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                result = result + board[i][j] + " ";
+                result = result + board[i][j].piece.type + " ";
             }
-            if(i != 7) {
+            if (i != 7) {
                 result = result + "\n";
             }
         }
         return result;
     }
 
+    ArrayList<Integer> randomPawn(String color, Square[][] board) {
+        ArrayList<Integer> indices = new ArrayList<>();
+        for (int i = 1; i < 7; i++) {
+            for (int j = 0; j < 8; j++) {
+                if ((board[i][j].piece.type == 'p') && (board[i][j].piece.color.compareTo(color) == 0)) {
+                    indices.add(i);
+                    indices.add(j);
+                }
+            }
+        }
+        return indices;
+    }
+
+    public Square[][] move_from_to(Piece piece, int z, int w, Square[][] board) {
+        board[z][w] = new Square(z, w, piece);
+        return board;
+    }
+
     public static void main(String[] args) {
         ChessBoard c1 = new ChessBoard();
         c1.fill_board();
+        String engine_side = null;
+        String xboard_side = null;
+        ArrayList<Integer> indices;
+        Scanner scan = new Scanner(System.in);
 
-        c1.board[6][1] = 4;
-        c1.white_pawn_moves(1, 0, 3, 0);
-        c1.white_pawn_moves(3, 0, 4, 0);
-        c1.white_pawn_moves(4, 0, 5, 0);
-        c1.white_pawn_moves(5, 0, 6, 1);
-        c1.white_pawn_moves(6, 1, 7, 0);
+        while (true) {
+            String command = scan.nextLine();
+            if (command.compareTo("xboard") == 0) {
+                continue;
+            } else if (command.compareTo("new") == 0) {
+                c1.fill_board();
+                engine_side = "black";
+                xboard_side = "white";
+            } else if (command.startsWith("protover")) {
+                System.out.println("feature sigint=0 san=0 name=\"Rosoga BOT\" done=1");
+                System.out.flush();
+            } else if (command.compareTo("force") == 0) {
+                continue;
+            } else if (command.compareTo("go") == 0) {
+                if (xboard_side.compareTo("black") == 0) {
+                    indices = c1.randomPawn("black", c1.board);
+                    indices = c1.black_pawn_move(indices.get(0), indices.get(1));
+                } else {
+                    indices = c1.randomPawn("white", c1.board);
+                    indices = c1.white_pawn_move(indices.get(0), indices.get(1));
+                }
+                // Verific daca primesc o mutare valida de la xboard ---a2a3
+            } else if ((command.charAt(1) >= '0') && (command.charAt(1) <= '8')) {
+                c1.board = c1.move_from_to(c1.board[8 - command.charAt(1)][command.charAt(0) - 97].piece,
+                        (8 - command.charAt(3)), (command.charAt(2) - 97), c1.board);
+
+            }
+
+        }
+
+        // indices = c1.black_pawn_move(1, 0);
+        // while(indices.get(0) != -1) {
+        // indices = c1.black_pawn_move(indices.get(0), indices.get(1));
+        // }
+        //
+        // indices = c1.white_pawn_move(6, 3);
+        // while (indices.get(0) != -1) {
+        // indices = c1.white_pawn_move(indices.get(0), indices.get(1));
+        // }
         // index pozitie initiala linie / coloana - index pozitie finala linie / coloana
-        System.out.println(c1);
+        //
+        // System.out.println(c1);
+
     }
+
 }
