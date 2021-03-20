@@ -221,10 +221,10 @@ public class ChessBoard {
         return indices;
     }
 
-//    public Square[][] move_from_to(Piece piece, int z, int w, Square[][] board) {
-//        board[z][w] = new Square(z, w, piece);
-//        return board;
-//    }
+    public Square[][] move_from_to(Piece piece, int z, int w, Square[][] board) {
+        board[z][w] = new Square(z, w, piece);
+        return board;
+    }
 
     public static void main(String[] args) {
         ChessBoard c1 = new ChessBoard();
@@ -242,6 +242,7 @@ public class ChessBoard {
                 c1.fill_board();
                 engine_side = "black";
                 xboard_side = "white";
+                indices = c1.randomPawn(engine_side, c1.board);
             } else if(command.startsWith("protover")) {
                 System.out.println("feature sigint=0 san=0 name=\"Rosoga BOT\" done=1");
                 System.out.flush();
@@ -270,25 +271,15 @@ public class ChessBoard {
                     System.out.println("resign");
                     System.out.flush();
                 }
+                if(engine_side.compareTo("black") == 0) {
+                    indices = c1.black_pawn_move(indices.get(0), indices.get(1));
+                } else {
+                    indices = c1.white_pawn_move(indices.get(0), indices.get(1));
+                }
             } else if(command.compareTo("quit") == 0) {
                 break;
             }
 
         }
-
-        // indices = c1.black_pawn_move(1, 0);
-        // while(indices.get(0) != -1) {
-        // indices = c1.black_pawn_move(indices.get(0), indices.get(1));
-        // }
-        //
-        // indices = c1.white_pawn_move(6, 3);
-        // while (indices.get(0) != -1) {
-        // indices = c1.white_pawn_move(indices.get(0), indices.get(1));
-        // }
-        // index pozitie initiala linie / coloana - index pozitie finala linie / coloana
-        //
-        // System.out.println(c1);
-
     }
-
 }
