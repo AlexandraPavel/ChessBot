@@ -1,27 +1,46 @@
 import java.util.ArrayList;
 
 public class ChessBoard {
-    int[][] board;
+    Square[][] board;
 
     public ChessBoard() {
-        board = new int[8][8];
+        board = new Square[8][8];
     }
 
     public void fill_board() {
+        board[0][0] = new Square(0,0, new Piece("black", 'r', 5));
+        board[0][1] = new Square(0,1, new Piece("black", 'n', 3));
+        board[0][2] = new Square(0,2, new Piece("black", 'b', 3));
+        board[0][3] = new Square(0,3, new Piece("black", 'q', 9));
+        board[0][4] = new Square(0,4, new Piece("black", 'k', Integer.MAX_VALUE));
+        board[0][5] = new Square(0,5, new Piece("black", 'b', 3));
+        board[0][6] = new Square(0,6, new Piece("black", 'n', 3));
+        board[0][7] = new Square(0,7, new Piece("black", 'r', 5));
         for(int i = 0; i < 8; i++) {
-            board[0][i] = 1;
-            board[1][i] = 1;
-            board[6][i] = 1;
-            board[7][i] = 1;
+            board[1][i] = new Square(1, i, new Piece("black", 'p', 1));
+            board[6][i] = new Square(6, i, new Piece("white", 'p', 1));
+        }
+        board[7][0] = new Square(7,0, new Piece("white", 'r', 5));
+        board[7][1] = new Square(7,1, new Piece("white", 'n', 3));
+        board[7][2] = new Square(7,2, new Piece("white", 'b', 3));
+        board[7][3] = new Square(7,3, new Piece("white", 'q', 9));
+        board[7][4] = new Square(7,4, new Piece("white", 'k', Integer.MAX_VALUE));
+        board[7][5] = new Square(7,5, new Piece("white", 'b', 3));
+        board[7][6] = new Square(7,6, new Piece("white", 'n', 3));
+        board[7][7] = new Square(7,7, new Piece("white", 'r', 5));
+        for(int i = 2; i < 6; i++) {
+            for(int j = 0; j < 8; j++) {
+                board[i][j] = new Square(i, j);
+            }
         }
     }
 
     public ArrayList<Integer> black_pawn_move_forward(int x, int y) {
         ArrayList<Integer> indices = new ArrayList<>();
-        if(x == 1 && board[x + 1][y] == 0 && board[x + 2][y] == 0) {
+        if(x == 1 && board[x + 1][y].piece.type == 'x' && board[x + 2][y].piece.type == 'x') {
             indices.add(x + 2);
             indices.add(y);
-        } else if(board[x + 1][y] == 0) {
+        } else if(board[x + 1][y].piece.type == 'x') {
             indices.add(x + 1);
             indices.add(y);
         } else {
@@ -39,7 +58,7 @@ public class ChessBoard {
             return indices;
         }
         if(y == 0) {
-            if(board[x + 1][y + 1] != 0) {
+            if(board[x + 1][y + 1].piece.type != 'x') {
                 indices.add(x + 1);
                 indices.add(y + 1);
             } else {
@@ -48,7 +67,7 @@ public class ChessBoard {
             return indices;
         }
         if(y == 7) {
-            if(board[x + 1][y - 1] != 0) {
+            if(board[x + 1][y - 1].piece.type != 'x') {
                 indices.add(x + 1);
                 indices.add(y - 1);
             } else {
@@ -56,17 +75,17 @@ public class ChessBoard {
             }
             return indices;
         }
-        if(board[x + 1][y - 1] != 0 && board[x + 1][y + 1] != 0) {
+        if(board[x + 1][y - 1].piece.type != 'x' && board[x + 1][y + 1].piece.type != 'x') {
             indices.add(x + 1);
-            if(board[x + 1][y - 1] > board[x + 1][y + 1]) {
+            if(board[x + 1][y - 1].piece.score > board[x + 1][y + 1].piece.score) {
                 indices.add(y - 1);
             } else {
                 indices.add(y + 1);
             }
-        } else if(board[x + 1][y - 1] != 0) {
+        } else if(board[x + 1][y - 1].piece.type != 'x') {
             indices.add(x + 1);
             indices.add(y - 1);
-        } else if(board[x + 1][y + 1] != 0) {
+        } else if(board[x + 1][y + 1].piece.type != 'x') {
             indices.add(x + 1);
             indices.add(y + 1);
         } else {
@@ -84,9 +103,9 @@ public class ChessBoard {
             if(indices.get(0) != 7) {
                 board[indices.get(0)][indices.get(1)] = board[x][y];
             } else {
-                board[indices.get(0)][indices.get(1)] = 10;
+                board[indices.get(0)][indices.get(1)] = new Square(indices.get(0), indices.get(1), new Piece("black", 'q', 9));
             }
-            board[x][y] = 0;
+            board[x][y] = new Square(x, y);
             System.out.println("move " + (char) (y + 97) + (8 - x) +
                     (char) (indices.get(1) + 97) + (8 - indices.get(0)));
         }
@@ -95,10 +114,10 @@ public class ChessBoard {
 
     public ArrayList<Integer> white_pawn_move_forward(int x, int y) {
         ArrayList<Integer> indices = new ArrayList<>();
-        if(x == 6 && board[x - 1][y] == 0 && board[x - 2][y] == 0) {
+        if(x == 6 && board[x - 1][y].piece.type == 'x' && board[x - 2][y].piece.type == 'x') {
             indices.add(x - 2);
             indices.add(y);
-        } else if(board[x - 1][y] == 0) {
+        } else if(board[x - 1][y].piece.type == 'x') {
             indices.add(x - 1);
             indices.add(y);
         } else {
@@ -116,7 +135,7 @@ public class ChessBoard {
             return indices;
         }
         if(y == 0) {
-            if(board[x - 1][y + 1] != 0) {
+            if(board[x - 1][y + 1].piece.type != 'x') {
                 indices.add(x - 1);
                 indices.add(y + 1);
             } else {
@@ -125,7 +144,7 @@ public class ChessBoard {
             return indices;
         }
         if(y == 7) {
-            if(board[x - 1][y - 1] != 0) {
+            if(board[x - 1][y - 1].piece.type != 'x') {
                 indices.add(x - 1);
                 indices.add(y - 1);
             } else {
@@ -133,17 +152,17 @@ public class ChessBoard {
             }
             return indices;
         }
-        if(board[x - 1][y - 1] != 0 && board[x - 1][y + 1] != 0) {
+        if(board[x - 1][y - 1].piece.type != 'x' && board[x - 1][y + 1].piece.type != 'x') {
             indices.add(x - 1);
-            if(board[x - 1][y + 1] > board[x - 1][y - 1]) {
+            if(board[x - 1][y + 1].piece.score > board[x - 1][y - 1].piece.score) {
                 indices.add(y + 1);
             } else {
                 indices.add(y - 1);
             }
-        } else if(board[x - 1][y - 1] != 0) {
+        } else if(board[x - 1][y - 1].piece.type != 'x') {
             indices.add(x - 1);
             indices.add(y - 1);
-        } else if(board[x - 1][y + 1] != 0) {
+        } else if(board[x - 1][y + 1].piece.type != 'x') {
             indices.add(x - 1);
             indices.add(y + 1);
         } else {
@@ -161,9 +180,9 @@ public class ChessBoard {
             if(indices.get(0) != 0) {
                 board[indices.get(0)][indices.get(1)] = board[x][y];
             } else {
-                board[indices.get(0)][indices.get(1)] = 10;
+                board[indices.get(0)][indices.get(1)] = new Square(indices.get(0), indices.get(1), new Piece("white", 'q', 9));
             }
-            board[x][y] = 0;
+            board[x][y] = new Square(x, y);
             System.out.println("move " + (char) (y + 97) + (8 - x) +
                     (char) (indices.get(1) + 97) + (8 - indices.get(0)));
         }
@@ -174,7 +193,7 @@ public class ChessBoard {
         String result = "";
         for(int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                result = result + board[i][j] + " ";
+                result = result + board[i][j].piece.type + " ";
             }
             if(i != 7) {
                 result = result + "\n";
@@ -187,21 +206,13 @@ public class ChessBoard {
         ChessBoard c1 = new ChessBoard();
         c1.fill_board();
 
-        //c1.board[1][0] = 6;
-        //c1.board[2][1] = 1;
-        //c1.board[4][2] = 1;
-
-        c1.board[5][6] = 7;
-        c1.board[2][5]=  7;
-        c1.board[6][7] = 8;
-
         ArrayList<Integer> indices;
 //        indices = c1.black_pawn_move(1, 0);
 //        while(indices.get(0) != -1) {
 //            indices =  c1.black_pawn_move(indices.get(0), indices.get(1));
 //        }
-
-        indices =  c1.white_pawn_move(5, 6);
+//
+        indices =  c1.white_pawn_move(6, 3);
         while(indices.get(0) != -1) {
             indices = c1.white_pawn_move(indices.get(0), indices.get(1));
         }
@@ -209,10 +220,5 @@ public class ChessBoard {
         //
         System.out.println(c1);
 
-        //suntem cu negru
-        //while(jocul continua) {
-        // comanda = primire comanda (xboard) (new) (protover).......
-        // botul_nostru = negru
-        // c1.white_pawn_moves sau c1.black_pawn_moves
     }
 }
