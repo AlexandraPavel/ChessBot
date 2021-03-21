@@ -100,7 +100,7 @@ public class ChessBoard {
         ArrayList<Integer> indices;
         indices = black_pawn_calculate_move(x, y);
         if (indices.get(0) == -1) {
-            System.out.println("resign"); ////// ???????
+            System.out.println("resign");
         } else {
             if (indices.get(0) != 7) {
                 board[indices.get(0)][indices.get(1)] = board[x][y];
@@ -179,7 +179,7 @@ public class ChessBoard {
         ArrayList<Integer> indices;
         indices = white_pawn_calculate_move(x, y);
         if (indices.get(0) == -1) {
-            System.out.println("resign"); ////// ???????
+            System.out.println("resign");
         } else {
             if (indices.get(0) != 0) {
                 board[indices.get(0)][indices.get(1)] = board[x][y];
@@ -210,11 +210,22 @@ public class ChessBoard {
 
     ArrayList<Integer> randomPawn(String color, Square[][] board) {
         ArrayList<Integer> indices = new ArrayList<>();
-        for (int i = 1; i < 7; i++) {
-            for (int j = 0; j < 8; j++) {
-                if ((board[i][j].piece.type == 'p') && (board[i][j].piece.color.compareTo(color) == 0)) {
-                    indices.add(i);
-                    indices.add(j);
+        if(color.compareTo("white") == 0){
+            for (int i = 1; i < 7; i++) {
+                for (int j = 0; j < 8; j++) {
+                    if ((board[i][j].piece.type == 'p') && (board[i][j].piece.color.compareTo(color) == 0)) {
+                        indices.add(i);
+                        indices.add(j);
+                    }
+                }
+            }
+        } else {
+            for (int i = 6; i >= 1; i--) {
+                for (int j = 7; j >= 0; j--) {
+                    if ((board[i][j].piece.type == 'p') && (board[i][j].piece.color.compareTo(color) == 0)) {
+                        indices.add(i);
+                        indices.add(j);
+                    }
                 }
             }
         }
@@ -231,6 +242,7 @@ public class ChessBoard {
         c1.fill_board();
         String engine_side = null;
         String xboard_side = null;
+        boolean move_flag = false; 
         ArrayList<Integer> indices = new ArrayList<>();
         Scanner scan = new Scanner(System.in);
 
@@ -242,16 +254,22 @@ public class ChessBoard {
                 c1.fill_board();
                 engine_side = "black";
                 xboard_side = "white";
+                move_flag = true;
                 indices = c1.randomPawn(engine_side, c1.board);
             } else if(command.startsWith("protover")) {
                 System.out.println("feature sigint=0 san=0 myname=\"Rosoga BOT\" done=1");
                 System.out.flush();
             } else if(command.compareTo("force") == 0) {
+                move_flag = false;
                 continue;
-            } else if(command.compareTo("go") == 0) {
-                String temp = engine_side;
-                engine_side = xboard_side;
-                xboard_side = temp;
+            } else if(command.compareTo("black") == 0) {
+                engine_side = "black";
+                xboard_side = "white";
+            } else if(command.compareTo("white") == 0) {
+                engine_side = "white";
+                xboard_side = "black";
+            } else if(command.compareTo("go") == 0) { 
+                move_flag = true;
                 if (engine_side.compareTo("black") == 0) {
                     indices = c1.randomPawn("black", c1.board);
                     indices = c1.black_pawn_move(indices.get(0), indices.get(1));
@@ -266,19 +284,20 @@ public class ChessBoard {
                 int start_y = command.charAt(0) - 97;
                 int end_x = 8 - command.charAt(3) + 48;
                 int end_y = command.charAt(2) - 97;
-                // System.out.println("end + start" + end_x +" "+ start_x);
-                // System.out.println("end + start" + end_y +" " + start_y + "aici");
+                
                 c1.board[end_x][end_y] = c1.board[start_x][start_y];
-                c1.board[start_x][start_y] = new Square(start_x, start_y);
-                if(indices.get(0) == end_x && indices.get(1) == end_y) {
-                    System.out.println("resign");
-                    System.out.flush();
-                }
-                if(engine_side.compareTo("black") == 0) {
-                    indices = c1.black_pawn_move(indices.get(0), indices.get(1));
-                } else {
-                    indices = c1.white_pawn_move(indices.get(0), indices.get(1));
-                }
+                c1.board[start_x][start_y] = new Square(start_x, start_y); 
+                if(move_flag == true) {
+                    if(indices.get(0) == end_x && indices.get(1) == end_y) {
+                        System.out.println("resign");
+                        System.out.flush();
+                    } else if(engine_side.compareTo("black") == 0) {
+                            indices = c1.black_pawn_move(indices.get(0), indices.get(1));
+                        } else {
+                            indices = c1.white_pawn_move(indices.get(0), indices.get(1));
+                        }
+                } 
+               
             } else if(command.compareTo("quit") == 0) {
                 break;
             }
