@@ -1,0 +1,30 @@
+locale = LC_CTYPE=en_US.UTF-8;LC_NUMERIC=ro_RO.UTF-8;LC_TIME=ro_RO.UTF-8;LC_COLLATE=C;LC_MONETARY=ro_RO.UTF-8;LC_MESSAGES=en_US.UTF-8;LC_PAPER=ro_RO.UTF-8;LC_NAME=ro_RO.UTF-8;LC_ADDRESS=ro_RO.UTF-8;LC_TELEPHONE=ro_RO.UTF-8;LC_MEASUREMENT=ro_RO.UTF-8;LC_IDENTIFICATION=ro_RO.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + make ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") make run
+813 >first : xboard
+protover 2
+818 <first : make[1]: Entering directory '/home/student/Desktop/PA/proiect/version/ChessBot/src'
+818 <first : java ChessBoard
+1013 <first : feature sigint=0 san=0 myname="Rosoga BOT" done=1
+1014 >first : accepted sigint
+1014 >first : accepted san
+1014 >first : accepted myname
+1014 >first : accepted done
+1015 >first : new
+random
+1016 >first : level 40 5 0
+1016 >first : post
+1016 >first : hard
+GameEnds(29, xboard exit, 2)
+10684 >first : result * {xboard exit}
+10684 >first : force
+10684 >first : quit

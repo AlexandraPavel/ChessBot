@@ -244,7 +244,7 @@ public class ChessBoard {
                 xboard_side = "white";
                 indices = c1.randomPawn(engine_side, c1.board);
             } else if(command.startsWith("protover")) {
-                System.out.println("feature sigint=0 san=0 name=\"Rosoga BOT\" done=1");
+                System.out.println("feature sigint=0 san=0 myname=\"Rosoga BOT\" done=1");
                 System.out.flush();
             } else if(command.compareTo("force") == 0) {
                 continue;
@@ -261,10 +261,13 @@ public class ChessBoard {
                 }
                 // Verific daca primesc o mutare valida de la xboard ---a2a3
             } else if((command.charAt(1) >= '1') && (command.charAt(1) <= '8')) {
-                int start_x = 8 - command.charAt(1);
+                System.out.println(command);
+                int start_x = 8 - command.charAt(1) + 48;
                 int start_y = command.charAt(0) - 97;
-                int end_x = 8 - command.charAt(3);
+                int end_x = 8 - command.charAt(3) + 48;
                 int end_y = command.charAt(2) - 97;
+                // System.out.println("end + start" + end_x +" "+ start_x);
+                // System.out.println("end + start" + end_y +" " + start_y + "aici");
                 c1.board[end_x][end_y] = c1.board[start_x][start_y];
                 c1.board[start_x][start_y] = new Square(start_x, start_y);
                 if(indices.get(0) == end_x && indices.get(1) == end_y) {
