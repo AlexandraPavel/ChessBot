@@ -1,0 +1,485 @@
+locale = LC_CTYPE=en_US.UTF-8;LC_NUMERIC=ro_RO.UTF-8;LC_TIME=ro_RO.UTF-8;LC_COLLATE=C;LC_MONETARY=ro_RO.UTF-8;LC_MESSAGES=en_US.UTF-8;LC_PAPER=ro_RO.UTF-8;LC_NAME=ro_RO.UTF-8;LC_ADDRESS=ro_RO.UTF-8;LC_TELEPHONE=ro_RO.UTF-8;LC_MEASUREMENT=ro_RO.UTF-8;LC_IDENTIFICATION=ro_RO.UTF-8
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+recognized 'normal' (-1) as variant normal
+shuffleOpenings = 0
+shuffleOpenings = 0
+Version: xboard 4.9.1 + make ()
+Reset(1, 0) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+StartChildProcess (dir=".") make run
+260 >first : xboard
+protover 2
+264 <first : make[1]: Entering directory '/home/student/Desktop/PA/proiect/version/ChessBot/src'
+265 <first : java ChessBoard
+418 <first : feature sigint=0 san=0 myname="Rosoga BOT" done=1
+418 >first : accepted sigint
+418 >first : accepted san
+418 >first : accepted myname
+418 >first : accepted done
+419 >first : new
+random
+419 >first : level 0 5 2
+419 >first : post
+419 >first : hard
+5162 >first : force
+8073 >first : c2c4
+8148 <first : c2c4
+9741 >first : a7a5
+9832 <first : a7a5
+11034 >first : e2e3
+11111 <first : e2e3
+20499 >first : b7b5
+20583 <first : b7b5
+22533 >first : g2g3
+22635 <first : g2g3
+25066 >first : b5b4
+25165 <first : b5b4
+26406 >first : g3g4
+26493 <first : g3g4
+28452 >first : white
+28453 >first : time 30600
+28453 >first : otim 30800
+28453 >first : black
+book hit = (NULL)
+28453 >first : go
+nps: w=-1, b=-1
+28511 <first : move b4b3
+33711 >first : time 30794
+33711 >first : otim 30480
+book hit = (NULL)
+33711 >first : e3e4
+33789 <first : e3e4
+33789 <first : move b3a2
+86059 >first : time 30986
+86059 >first : otim 25453
+book hit = (NULL)
+86059 >first : c4c5
+86135 <first : c4c5
+86136 <first : move a2b1
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+89013 >first : force
+shuffleOpenings = 0
+89015 >first : new
+random
+89015 >first : level 0 5 2
+89015 >first : post
+89015 >first : hard
+91382 >first : force
+98628 >first : a2a4
+98710 <first : a2a4
+101964 >first : h7h5
+102046 <first : h7h5
+Reset(1, 1) from gameMode 6
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+107058 >first : new
+random
+107059 >first : level 0 5 2
+107059 >first : post
+107059 >first : hard
+109355 >first : force
+110958 >first : a2a4
+111036 <first : a2a4
+112449 >first : d7d6
+112582 <first : d7d6
+113913 >first : h2h4
+113988 <first : h2h4
+117847 >first : d6d5
+117957 <first : d6d5
+119358 >first : black
+119358 >first : time 30400
+119358 >first : otim 30400
+119358 >first : white
+book hit = (NULL)
+119358 >first : go
+nps: w=-1, b=-1
+119361 <first : move a4a5
+Reset(1, 1) from gameMode 1
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+137172 >first : force
+shuffleOpenings = 0
+137174 >first : new
+random
+137174 >first : level 0 5 2
+137174 >first : post
+137174 >first : hard
+Reset(1, 1) from gameMode 0
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+367558 >first : force
+shuffleOpenings = 0
+367559 >first : new
+random
+367559 >first : level 0 5 2
+367559 >first : post
+367559 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+372501 >first : time 30000
+372502 >first : otim 30200
+book hit = (NULL)
+372502 >first : c2c4
+372582 <first : c2c4
+372582 <first : move h7h5
+374606 >first : time 30191
+374606 >first : otim 30197
+book hit = (NULL)
+374606 >first : h2h4
+374697 <first : h2h4
+374697 <first : resign
+GameEnds(26, Black resigns, 1)
+374697 >first : result 1-0 {Black resigns}
+374698 >first : force
+Reset(1, 1) from gameMode 8
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+383329 >first : new
+random
+383329 >first : level 0 5 2
+383329 >first : post
+383330 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+388556 >first : time 30000
+388556 >first : otim 30200
+book hit = (NULL)
+388556 >first : e2e3
+388632 <first : e2e3
+388632 <first : move h7h5
+390211 >first : time 30192
+390211 >first : otim 30242
+book hit = (NULL)
+390211 >first : d1h5
+390327 <first : d1h5
+390327 <first : move g7g5
+390420 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+392641 >first : time 30380
+392641 >first : otim 30210
+book hit = (NULL)
+392641 >first : h5f7
+392739 <first : h5f7
+392739 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+396340 >first : force
+shuffleOpenings = 0
+396342 >first : new
+random
+396342 >first : level 0 5 2
+396342 >first : post
+396342 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+400622 >first : time 30000
+400622 >first : otim 30200
+book hit = (NULL)
+400622 >first : e2e3
+400706 <first : e2e3
+400706 <first : move h7h5
+402485 >first : time 30191
+402485 >first : otim 30222
+book hit = (NULL)
+402485 >first : d1h5
+402596 <first : d1h5
+402596 <first : move g7g5
+402679 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+404651 >first : time 30380
+404652 >first : otim 30216
+book hit = (NULL)
+404652 >first : h5g6
+404731 <first : h5g6
+404731 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+429343 >first : force
+shuffleOpenings = 0
+429345 >first : new
+random
+429346 >first : level 0 5 2
+429346 >first : post
+429346 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+434038 >first : time 30000
+434038 >first : otim 30200
+book hit = (NULL)
+434038 >first : e2e3
+434123 <first : e2e3
+434123 <first : move h7h5
+436222 >first : time 30191
+436222 >first : otim 30190
+book hit = (NULL)
+436222 >first : d1h5
+436322 <first : d1h5
+436322 <first : move g7g5
+436405 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+438628 >first : time 30381
+438628 >first : otim 30159
+book hit = (NULL)
+438628 >first : h5f3
+438726 <first : h5f3
+438727 <first : move g4f3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+484385 >first : force
+shuffleOpenings = 0
+484386 >first : new
+random
+484386 >first : level 0 5 2
+484387 >first : post
+484387 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+487096 >first : time 30000
+487096 >first : otim 30200
+book hit = (NULL)
+487097 >first : e2e3
+487177 <first : e2e3
+487177 <first : move h7h5
+490326 >first : time 30191
+490326 >first : otim 30085
+book hit = (NULL)
+490326 >first : d1h5
+490434 <first : d1h5
+490434 <first : move g7g5
+490515 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+492269 >first : time 30381
+492270 >first : otim 30101
+book hit = (NULL)
+492270 >first : c2c3
+492355 <first : c2c3
+492355 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+520611 >first : force
+shuffleOpenings = 0
+520613 >first : new
+random
+520613 >first : level 0 5 2
+520613 >first : post
+520613 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+523306 >first : time 30000
+523306 >first : otim 30200
+book hit = (NULL)
+523306 >first : e2e3
+523381 <first : e2e3
+523381 <first : move h7h5
+525838 >first : time 30192
+525838 >first : otim 30154
+book hit = (NULL)
+525838 >first : d1h5
+525935 <first : d1h5
+525935 <first : move g7g5
+526012 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+529378 >first : time 30382
+529378 >first : otim 30010
+book hit = (NULL)
+529378 >first : c2c3
+529460 <first : c2c3
+529460 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+543528 >first : force
+shuffleOpenings = 0
+543530 >first : new
+random
+543530 >first : level 0 5 2
+543531 >first : post
+543532 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+545239 >first : time 30000
+545239 >first : otim 30200
+book hit = (NULL)
+545239 >first : e2e4
+545325 <first : e2e4
+545325 <first : move h7h5
+547031 >first : time 30191
+547032 >first : otim 30229
+book hit = (NULL)
+547032 >first : f2f3
+547117 <first : f2f3
+547117 <first : move h5h4
+548467 >first : time 30382
+548467 >first : otim 30294
+book hit = (NULL)
+548467 >first : h2h3
+548548 <first : h2h3
+548548 <first : resign
+GameEnds(26, Black resigns, 1)
+548548 >first : result 1-0 {Black resigns}
+548548 >first : force
+Reset(1, 1) from gameMode 8
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+554103 >first : new
+random
+554103 >first : level 0 5 2
+554104 >first : post
+554104 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+557394 >first : time 30000
+557394 >first : otim 30200
+book hit = (NULL)
+557394 >first : e2e3
+557472 <first : e2e3
+557472 <first : move h7h5
+559658 >first : time 30192
+559658 >first : otim 30181
+book hit = (NULL)
+559658 >first : d1h5
+559765 <first : d1h5
+559765 <first : move g7g5
+559848 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+563144 >first : time 30381
+563144 >first : otim 30043
+book hit = (NULL)
+563144 >first : e3e4
+563237 <first : e3e4
+563237 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+565710 >first : force
+shuffleOpenings = 0
+565712 >first : new
+random
+565712 >first : level 0 5 2
+565712 >first : post
+565712 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+567454 >first : time 30000
+567454 >first : otim 30200
+book hit = (NULL)
+567454 >first : e2e3
+567532 <first : e2e3
+567532 <first : move h7h5
+570338 >first : time 30192
+570338 >first : otim 30119
+book hit = (NULL)
+570338 >first : d1g4
+570446 <first : d1g4
+570446 <first : move h5g4
+573655 >first : time 30381
+573655 >first : otim 29998
+book hit = (NULL)
+573656 >first : e3e4
+573740 <first : e3e4
+573740 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+592757 >first : force
+shuffleOpenings = 0
+592758 >first : new
+random
+592758 >first : level 0 5 2
+592758 >first : post
+592758 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+594452 >first : time 30000
+594452 >first : otim 30200
+book hit = (NULL)
+594452 >first : e2e3
+594530 <first : e2e3
+594530 <first : move h7h5
+602425 >first : time 30192
+602426 >first : otim 29610
+book hit = (NULL)
+602426 >first : d1h5
+602529 <first : d1h5
+602529 <first : move g7g5
+602609 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+697266 >first : time 30381
+697266 >first : otim 20336
+book hit = (NULL)
+697267 >first : h5f3
+697367 <first : h5f3
+697367 <first : move g4f3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+735066 >first : force
+shuffleOpenings = 0
+735070 >first : new
+random
+735070 >first : level 0 5 2
+735070 >first : post
+735070 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+736483 >first : time 30000
+736484 >first : otim 30200
+book hit = (NULL)
+736484 >first : e2e3
+736665 <first : e2e3
+736665 <first : move h7h5
+738117 >first : time 30181
+738118 >first : otim 30254
+book hit = (NULL)
+738118 >first : d1h5
+738220 <first : d1h5
+738220 <first : move g7g5
+738301 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+741408 >first : time 30371
+741408 >first : otim 30136
+book hit = (NULL)
+741409 >first : h5h8
+741511 <first : h5h8
+741511 <first : move g4g3
+Reset(1, 1) from gameMode 2
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+745915 >first : force
+shuffleOpenings = 0
+745917 >first : new
+random
+745917 >first : level 0 5 2
+745917 >first : post
+745917 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+748488 >first : time 30000
+748488 >first : otim 30200
+book hit = (NULL)
+748488 >first : e2e3
+748565 <first : e2e3
+748565 <first : move h7h5
+750052 >first : time 30192
+750053 >first : otim 30251
+book hit = (NULL)
+750054 >first : d1h5
+750171 <first : d1h5
+750171 <first : move g7g5
+750255 <first : move g5g4
+Ignoring move out of turn by first, gameMode 2, forwardMost 4
+GameEnds(27, Black wins on time, 4)
+1052688 >first : result 0-1 {Black wins on time}
+1052688 >first : force
