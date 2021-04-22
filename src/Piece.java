@@ -17,4 +17,5 @@ public abstract class Piece {
 
     public abstract IndexPair move(Square[][] board, int x, int y);
 
+    public abstract IndexPair force_move(Square[][] board, int x, int y, IndexPair move);
 }

@@ -11,9 +11,16 @@ public class WKing extends Piece {
         in_check = false;
         checked = 0;
     }
-
     public IndexPair move(Square[][] board, int x, int y) {
         return new IndexPair();
+    }
+    public IndexPair force_move(Square[][] board, int x, int y, IndexPair move) {
+        return new IndexPair();
+    }
+    public void move(Square[][] board, int x, int y, int next_x, int next_y) {
+        board[next_x][next_y] = board[x][y];
+        board[x][y] = new Square(x, y);
+        System.out.flush();
     }
 
     public boolean valid(int a, int b) {
@@ -22,14 +29,63 @@ public class WKing extends Piece {
         }
         return false;
     }
+    public IndexPair take_or_enter_attack(Square[][] board, int x, int y, ArrayList<IndexPair> moves, IndexPair source) {
+        IndexPair indices = new IndexPair();
+        int i, j;
+        for (i = 0; i < 8; i++)
+            for (j = 0; j < 8; j++) {
+                indices = board[i][j].piece.force_move(board, i, j, source);
+                if (indices.x != -1 && indices.y != -1)
+                    return indices;
+            }
+        return indices;
+    }
 
-    public ArrayList<IndexPair> is_in_check(Square[][] board, int x, int y) {
+    public ArrayList<IndexPair> verify_moves(Square[][] board, int x, int y, ArrayList<IndexPair> illegal_moves) {
+        ArrayList<IndexPair> moves = new ArrayList<>();
+        if (valid(x - 1, y - 1) && board[x - 1][y - 1].piece.type == 'x')
+            moves.add(new IndexPair(x - 1, y - 1));
+        if (valid(x - 1, y) && board[x - 1][y].piece.type == 'x')
+            moves.add(new IndexPair(x - 1, y));
+        if (valid(x - 1, y + 1) && board[x - 1][y + 1].piece.type == 'x')
+            moves.add(new IndexPair(x - 1, y + 1));
+        if (valid(x, y - 1) && board[x][y - 1].piece.type == 'x')
+            moves.add(new IndexPair(x , y - 1));
+        if (valid(x, y + 1) && board[x][y + 1].piece.type == 'x')
+            moves.add(new IndexPair(x, y + 1));
+        if (valid(x + 1, y - 1) && board[x + 1][y - 1].piece.type == 'x')
+            moves.add(new IndexPair(x + 1, y - 1));
+        if (valid(x + 1, y) && board[x + 1][y].piece.type == 'x')
+            moves.add(new IndexPair(x + 1, y));
+        if (valid(x + 1, y + 1) && board[x + 1][y + 1].piece.type == 'x')
+            moves.add(new IndexPair(x + 1, y + 1));
+        for (IndexPair move : illegal_moves)
+            moves.remove(move);
+
+        ArrayList<IndexPair> result = new ArrayList<>();
+        for (IndexPair move : moves) {
+            board[move.x][move.y] = new Square(move.x, move.y, new WKing());
+            board[x][y] = new Square(x, y);
+            ArrayList<ArrayList<IndexPair>> is_check_result = ((WKing) board[move.x][move.y].piece).is_in_check(board, move.x, move.y);
+            board[move.x][move.y] = new Square(move.x, move.y);
+            board[x][y] = new Square(x, y, new WKing());
+            if (is_check_result.get(0).size() == 0)
+                result.add(move);
+        }
+
+        return result;
+    }
+
+    public ArrayList<ArrayList<IndexPair>> is_in_check(Square[][] board, int x, int y) {
         ArrayList<IndexPair> check_positions = new ArrayList<>();
+        ArrayList<IndexPair> not_good_moves = new ArrayList<>();
         int i, j;
         for(i = y - 1; i >= 0; i--) {
             if(!board[x][i].piece.colour.equals("default")) {
                 if(board[x][i].piece.colour.equals("black") && (board[x][i].piece.type == 'r' || board[x][i].piece.type == 'q')) {
                     check_positions.add(new IndexPair(x, i));
+                    not_good_moves.add(new IndexPair(x, y - 1));
+                    not_good_moves.add(new IndexPair(x, y + 1));
                 }
                 break;
             }
@@ -38,6 +94,8 @@ public class WKing extends Piece {
             if(!board[x][i].piece.colour.equals("default")) {
                 if(board[x][i].piece.colour.equals("black") && (board[x][i].piece.type == 'r' || board[x][i].piece.type == 'q')) {
                     check_positions.add(new IndexPair(x, i));
+                    not_good_moves.add(new IndexPair(x, y + 1));
+                    not_good_moves.add(new IndexPair(x, y - 1));
                 }
                 break;
             }
@@ -46,6 +104,8 @@ public class WKing extends Piece {
             if(!board[i][y].piece.colour.equals("default")) {
                 if(board[i][y].piece.colour.equals("black") && (board[i][y].piece.type == 'r' || board[i][y].piece.type == 'q')) {
                     check_positions.add(new IndexPair(i, y));
+                    not_good_moves.add(new IndexPair(x - 1, y));
+                    not_good_moves.add(new IndexPair(x + 1, y));
                 }
                 break;
             }
@@ -54,42 +114,54 @@ public class WKing extends Piece {
             if(!board[i][y].piece.colour.equals("default")) {
                 if(board[i][y].piece.colour.equals("black") && (board[i][y].piece.type == 'r' || board[i][y].piece.type == 'q')) {
                     check_positions.add(new IndexPair(i, y));
+                    not_good_moves.add(new IndexPair(x + 1, y));
+                    not_good_moves.add(new IndexPair(x - 1, y));
                 }
                 break;
             }
         }
         for(i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
             if(!board[i][j].piece.colour.equals("default")) {
-                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'r' || board[i][j].piece.type == 'q')) {
+                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'b' || board[i][j].piece.type == 'q')) {
                     check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x - 1, y - 1));
+                    not_good_moves.add(new IndexPair(x + 1, y + 1));
                 } else if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'p' && i == x - 1 && j == y - 1)) {
                     check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x - 1, y - 1));
                 }
                 break;
             }
         }
         for(i = x + 1, j = y + 1; i < 8 && j < 8; i++, j++) {
             if(!board[i][j].piece.colour.equals("default")) {
-                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'r' || board[i][j].piece.type == 'q')) {
+                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'b' || board[i][j].piece.type == 'q')) {
                     check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x + 1, y + 1));
+                    not_good_moves.add(new IndexPair(x - 1, y - 1));
                 }
                 break;
             }
         }
         for(i = x - 1, j = y + 1; i >= 0 && j < 8; i--, j++) {
             if(!board[i][j].piece.colour.equals("default")) {
-                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'r' || board[i][j].piece.type == 'q')) {
+                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'b' || board[i][j].piece.type == 'q')) {
                     check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x - 1, y + 1));
+                    not_good_moves.add(new IndexPair(x + 1, y - 1));
                 } else if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'p' && i == x - 1 && j == y + 1)) {
                     check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x - 1, y + 1));
                 }
                 break;
             }
         }
         for(i = x + 1, j = y - 1; i < 8 && j >= 0; i++, j--) {
             if(!board[i][j].piece.colour.equals("default")) {
-                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'r' || board[i][j].piece.type == 'q')) {
+                if(board[i][j].piece.colour.equals("black") && (board[i][j].piece.type == 'b' || board[i][j].piece.type == 'q')) {
                     check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x + 1, y - 1));
+                    not_good_moves.add(new IndexPair(x - 1, y + 1));
                 }
                 break;
             }
@@ -102,6 +174,9 @@ public class WKing extends Piece {
                 }
             }
         }
-        return check_positions;
+        ArrayList<ArrayList<IndexPair>> solution = new ArrayList<>();
+        solution.add(check_positions);
+        solution.add(not_good_moves);
+        return solution;
     }
 }

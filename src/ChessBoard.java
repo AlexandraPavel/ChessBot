@@ -49,12 +49,12 @@ public class ChessBoard {
         return result;
     }
 
-    IndexPair randomPawn(String color, Square[][] board) {
+    IndexPair randomPiece(String color, Square[][] board) {
         IndexPair indices = new IndexPair();
         if(color.compareTo("white") == 0){
             for (int i = 1; i < 7; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if ((board[i][j].piece.type == 'p') && (board[i][j].piece.colour.compareTo(color) == 0)) {
+                    if ((board[i][j].piece.type != 'x') && (board[i][j].piece.colour.compareTo(color) == 0)) {
                         //indices.add(i);
                         //indices.add(j);
                         indices.x = i;
@@ -65,7 +65,7 @@ public class ChessBoard {
         } else {
             for (int i = 6; i >= 1; i--) {
                 for (int j = 7; j >= 0; j--) {
-                    if ((board[i][j].piece.type == 'p') && (board[i][j].piece.colour.compareTo(color) == 0)) {
+                    if ((board[i][j].piece.type != 'x') && (board[i][j].piece.colour.compareTo(color) == 0)) {
                         //indices.add(i);
                         //indices.add(j);
                         indices.x = i;

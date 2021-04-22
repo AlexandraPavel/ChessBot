@@ -11,11 +11,40 @@ public class WQueen extends Piece {
         }
         return false;
     }
+    public IndexPair force_move(Square[][] board, int x, int y, IndexPair move) {
+        IndexPair indices = new IndexPair();
+        int modify_x, modify_y, start_x, start_y;
+        start_x = x;
+        start_y = y;
+        modify_x = move.x - x;
+        modify_y = move.y - y;
+        if (modify_x > 0)
+            modify_x = 1;
+        else if (modify_x == 0)
+            modify_x = 0;
+        else
+            modify_x = -1;
+
+        if (modify_y >= 0)
+            modify_y = 1;
+        else if (modify_y == 0)
+            modify_y = 0;
+        else
+            modify_y = -1;
+        while (valid(x, y) && board[x][y].piece.colour.equals("default") && board[x][y].piece.type == 'x') {
+            x += modify_x;
+            y += modify_y;
+        }
+        if (valid(x, y) && board[x][y].piece.colour.equals("black") && x == move.x && y == move.y) {
+            indices.x = start_x;
+            indices.y = start_y;
+            // vedem
+        }
+        return indices;
+    }
 
     public IndexPair verify_best_take(Square[][] board, int x, int y, int best_score, int modify_x, int modify_y) {
         IndexPair indices = new IndexPair();
-        indices.x = -1;
-        indices.y = -1;
         while (valid(x, y) && board[x][y].piece.colour.equals("default") && board[x][y].piece.type == 'x') {
             x += modify_x;
             y += modify_y;
