@@ -7,6 +7,7 @@ public class WBishop extends Piece {
 
     public IndexPair calculate_move(Square[][] board, int x, int y){
 		IndexPair indices = new IndexPair();
+		IndexPair temp = new IndexPair();
 		int cost = 0;
 		int x_tmp = x;
 		int y_tmp = y;
@@ -23,6 +24,9 @@ public class WBishop extends Piece {
 						indices.y = y + 1;
 					}
 					
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
@@ -42,6 +46,9 @@ public class WBishop extends Piece {
 						indices.y = y - 1;
 					}
 					
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
@@ -61,6 +68,9 @@ public class WBishop extends Piece {
 						indices.x = x - 1;
 						indices.y = y + 1;
 					}
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
@@ -79,11 +89,16 @@ public class WBishop extends Piece {
 						indices.x = x - 1;
 						indices.y = y - 1;
 					}
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
 		}
 
+		if (cost == 0)
+			return temp;
 		return indices;
 	}
 	public IndexPair move(Square[][] board, int x,int y) {

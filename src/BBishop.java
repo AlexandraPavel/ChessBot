@@ -7,7 +7,7 @@ public class BBishop extends Piece {
 
     public IndexPair calculate_move(Square[][] board, int x, int y){
 		IndexPair indices = new IndexPair();
-		IndexPair maxVal = new IndexPair();
+		IndexPair temp = new IndexPair();
 		int cost = 0;
 		int x_tmp = x;
 		int y_tmp = y;
@@ -24,6 +24,9 @@ public class BBishop extends Piece {
 						indices.y = y + 1;
 					}
 					
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
@@ -43,6 +46,9 @@ public class BBishop extends Piece {
 						indices.y = y - 1;
 					}
 					
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
@@ -62,6 +68,9 @@ public class BBishop extends Piece {
 						indices.x = x - 1;
 						indices.y = y + 1;
 					}
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
 
 			}
@@ -80,8 +89,10 @@ public class BBishop extends Piece {
 						indices.x = x - 1;
 						indices.y = y - 1;
 					}
+				} else {
+					temp.x = x;
+					temp.y = y;
 				}
-
 			}
 		}
 		//cand ma aflu pe prima linie
@@ -159,7 +170,7 @@ public class BBishop extends Piece {
 						indices.x = x + 1;
 						indices.y = y - 1;
 					}
-
+IndexPair temp = new IndexPair();
 				}
 			}
 		//sunt pe ultima linie;
@@ -219,7 +230,8 @@ public class BBishop extends Piece {
 				}
 			}
 		}*/
-
+		if (cost == 0)
+			return temp;
 		return indices;
 	}
 	public IndexPair move(Square[][] board, int x,int y) {
