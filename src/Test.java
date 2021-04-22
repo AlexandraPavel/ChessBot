@@ -14,10 +14,10 @@ public class Test {
         Scanner scan = new Scanner(System.in);
 
 
-		c1.board[4][6] = new Square(4,6,new BBishop());
-		//c1.board[1][1] = new Square(1,1);
-		//c1.board[3][3] = new Square(3,3, new BKnight());
-		IndexPair indices11 = c1.board[4][6].piece.move(c1.board,4, 6);
+		c1.board[0][4] = new Square(0,4,new WBishop());
+		//c1.board[1][5] = new Square(1,5);
+		c1.board[1][3] = new Square(3,3, new BKnight());
+		IndexPair indices11 = c1.board[0][4].piece.move(c1.board,0, 4);
 
 		for (int i = 0; i < 8;i++) {
 			for (int j = 0 ; j < 8;j++) {
