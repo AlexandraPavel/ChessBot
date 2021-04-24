@@ -5,6 +5,18 @@ public class WPawn extends Piece {
         super("white", 'p', 1);
     }
 
+    public boolean valid(int a, int b) {
+        if(a >= 0 && a < 8 && b >= 0 && b < 8) {
+            return true;
+        }
+        return false;
+    }
+
+    public IndexPair force_move(Square[][] board, int x, int y, IndexPair move) {
+        IndexPair indices = new IndexPair();
+        return indices;
+    }
+
     public IndexPair move_forward(Square[][] board, int x, int y) {
         IndexPair indices = new IndexPair();
         if (x == 6 && board[x - 1][y].piece.type == 'x' && board[x - 2][y].piece.type == 'x') {

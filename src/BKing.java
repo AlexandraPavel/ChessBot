@@ -14,10 +14,15 @@ public class BKing extends Piece {
     public IndexPair move(Square[][] board, int x, int y) {
         return new IndexPair();
     }
+    public IndexPair force_move(Square[][] board, int x, int y, IndexPair move) {
+        return new IndexPair();
+    }
 
     public void move(Square[][] board, int x, int y, int next_x, int next_y) {
         board[next_x][next_y] = board[x][y];
         board[x][y] = new Square(x, y);
+        System.out.println("move " + (char) (y + 97) + (8 - x) +
+                (char) (next_y + 97) + (8 - next_x));
         System.out.flush();
     }
 
@@ -27,6 +32,60 @@ public class BKing extends Piece {
         }
         return false;
     }
+    public IndexPair take_or_enter_attack(Square[][] board, int x, int y, ArrayList<IndexPair> moves,IndexPair check_source) {
+        IndexPair indices = new IndexPair();
+        int i, j;
+        int modify_x, modify_y;
+        modify_x = check_source.x - x;
+        modify_y = check_source.y - y;
+        if (modify_x > 0)
+            modify_x = 1;
+        else if (modify_x == 0)
+            modify_x = 0;
+        else
+            modify_x = -1;
+
+        if (modify_y > 0)
+            modify_y = 1;
+        else if (modify_y == 0)
+            modify_y = 0;
+        else
+            modify_y = -1;
+
+        int k_x, k_y;
+        k_x = Math.min(x, check_source.x);
+        k_y = Math.min(y, check_source.y);
+        for (i = 0; i < 8; i++)
+            for (j = 0; j < 8; j++)
+                if (board[i][j].piece.colour.compareTo("black") == 0) {
+                    indices = board[i][j].piece.force_move(board, i, j, check_source);
+                    if (indices.x != -1 && indices.y != -1) {
+                        return indices;
+                    }
+                    k_x += modify_x;
+                    k_y += modify_y;
+                    while (k_x <= Math.max(x, check_source.x) && k_y <= Math.max(y, check_source.y)) {
+                        if (board[k_x][k_y].piece.type == 'x')
+                            indices = board[i][j].piece.force_move(board, i, j, new IndexPair(k_x, k_y));
+                        if (indices.x != -1 && indices.y != -1) {
+                            return indices;
+                        }
+                        k_x += modify_x;
+                        k_y += modify_y;
+                    }
+                }
+        if (indices.x == -1) {
+//            System.out.println("Not found");
+            if (moves.size() == 0) {
+                System.out.println("resign");
+                System.out.flush();
+            } else {
+                ((BKing) board[x][y].piece).move(board, x, y, moves.get(0).x, moves.get(0).y);
+            }
+        }
+        return indices;
+    }
+
     public ArrayList<IndexPair> verify_moves(Square[][] board, int x, int y, ArrayList<IndexPair> illegal_moves) {
         ArrayList<IndexPair> moves = new ArrayList<>();
         if (valid(x - 1, y - 1) && board[x - 1][y - 1].piece.type == 'x')
@@ -50,11 +109,11 @@ public class BKing extends Piece {
 
         ArrayList<IndexPair> result = new ArrayList<>();
         for (IndexPair move : moves) {
-            board[move.x][move.y] = new Square(move.x, move.y, new WKing());
+            board[move.x][move.y] = new Square(move.x, move.y, new BKing());
             board[x][y] = new Square(x, y);
-            ArrayList<ArrayList<IndexPair>> is_check_result = ((WKing) board[move.x][move.y].piece).is_in_check(board, move.x, move.y);
+            ArrayList<ArrayList<IndexPair>> is_check_result = ((BKing) board[move.x][move.y].piece).is_in_check(board, move.x, move.y);
             board[move.x][move.y] = new Square(move.x, move.y);
-            board[x][y] = new Square(x, y, new WKing());
+            board[x][y] = new Square(x, y, new BKing());
             if (is_check_result.get(0).size() == 0)
                 result.add(move);
         }

@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class WQueen extends Piece {
     public WQueen() {
         super("white", 'q', 9);
@@ -25,20 +23,26 @@ public class WQueen extends Piece {
         else
             modify_x = -1;
 
-        if (modify_y >= 0)
+        if (modify_y > 0)
             modify_y = 1;
         else if (modify_y == 0)
             modify_y = 0;
         else
             modify_y = -1;
-        while (valid(x, y) && board[x][y].piece.colour.equals("default") && board[x][y].piece.type == 'x') {
+        x += modify_x;
+        y += modify_y;
+        while (valid(x, y) &&  board[x][y].piece.type == 'x' &&  x != move.x && y != move.y) {
             x += modify_x;
             y += modify_y;
         }
-        if (valid(x, y) && board[x][y].piece.colour.equals("black") && x == move.x && y == move.y) {
+        if (valid(x, y) && x == move.x && y == move.y) {
             indices.x = start_x;
             indices.y = start_y;
-            // vedem
+            board[move.x][move.y] = board[start_x][start_y];
+            board[start_x][start_y] = new Square(start_x, start_y);
+            System.out.println("move " + (char) (start_y + 97) + (8 - start_x) +
+                    (char) (move.y + 97) + (8 - move.x));
+            System.out.flush();
         }
         return indices;
     }
@@ -159,6 +163,9 @@ public class WQueen extends Piece {
         if (indices.x != -1) {
             board[indices.x][indices.y] = board[x][y];
             board[x][y] = new Square(x, y);
+            System.out.println("move " + (char) (y + 97) + (8 - x) +
+                    (char) (indices.y + 97) + (8 - indices.x));
+            System.out.flush();
         }
         System.out.flush();
         return indices;
