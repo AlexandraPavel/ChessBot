@@ -5,6 +5,10 @@ public class WPawn extends Piece {
         super("white", 'p', 1);
     }
 
+	public IndexPair force_move (Square[][] board,int x,int y,IndexPair move) {
+		return new IndexPair();
+	}
+
     public IndexPair move_forward(Square[][] board, int x, int y) {
         IndexPair indices = new IndexPair();
         if (x == 6 && board[x - 1][y].piece.type == 'x' && board[x - 2][y].piece.type == 'x') {

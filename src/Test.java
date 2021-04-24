@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//import jdk.internal.util.xml.impl.Pair;
+
 public class Test {
     public static void main(String[] args) {
         ChessBoard c1 = new ChessBoard();
@@ -14,10 +16,11 @@ public class Test {
         Scanner scan = new Scanner(System.in);
 
 
-		c1.board[0][4] = new Square(0,4,new WBishop());
-		//c1.board[1][5] = new Square(1,5);
-		c1.board[1][3] = new Square(3,3, new BKnight());
-		IndexPair indices11 = c1.board[0][4].piece.move(c1.board,0, 4);
+		c1.board[5][6] = new Square(5,6,new BPawn());
+		c1.board[4][7] = new Square(4,7, new WBishop());
+		//c1.board[1][3] = new Square(3,3, new BKnight());
+		IndexPair indices12 = c1.board[4][7].piece.force_move(c1.board,4,7,new IndexPair(6,5));
+		//IndexPair indices11 = c1.board[0][4].piece.move(c1.board,0, 4);
 
 		for (int i = 0; i < 8;i++) {
 			for (int j = 0 ; j < 8;j++) {
