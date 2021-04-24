@@ -200,7 +200,7 @@ public class BBishop extends Piece {
         IndexPair indices;
         indices = calculate_move(board, x, y);
         if (indices.x == -1) {
-            System.out.println("resign");
+            // System.out.println("resign");
         } else {
             board[indices.x][indices.y] = board[x][y];
             System.out.println("move " + (char) (y + 97) + (8 - x) +

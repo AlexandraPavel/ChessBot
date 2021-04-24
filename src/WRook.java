@@ -119,7 +119,7 @@ public class WRook extends Piece {
         if(pieces_found.isEmpty()){
             i--;
             j--;
-            System.out.println("i: " + i + " j: " + j + " k: " + k + " l: " + l);
+            // System.out.println("i: " + i + " j: " + j + " k: " + k + " l: " + l);
             //toate
             if(i != x && j != y && k != x && l != y){
                 int max = i;
@@ -281,7 +281,7 @@ public class WRook extends Piece {
             }
 
             if(i != x && j == y && k == x && l == y){
-                System.out.println("X: " + i + " Y: " + j);
+                // System.out.println("X: " + i + " Y: " + j);
                 return new IndexPair(i, y);
             }
             if(i == x && j != y && k == x && l == y) {
@@ -310,7 +310,7 @@ public class WRook extends Piece {
     public IndexPair move(Square[][] board, int x, int y) {
         IndexPair temp = calculateMove(board, x, y);
         if(temp.x == -1){
-            System.out.println("resign");
+            // System.out.println("resign");
         } else {
             board[temp.x][temp.y] = board[x][y];
             board[x][y] = new Square(x, y);

@@ -17,12 +17,14 @@ public class WKing extends Piece {
     public IndexPair force_move(Square[][] board, int x, int y, IndexPair move) {
         return new IndexPair();
     }
-    public void move(Square[][] board, int x, int y, int next_x, int next_y) {
+    public IndexPair move(Square[][] board, int x, int y, int next_x, int next_y) {
         board[next_x][next_y] = board[x][y];
         board[x][y] = new Square(x, y);
+        ((WKing) board[next_x][next_y].piece).moved = true;
         System.out.println("move " + (char) (y + 97) + (8 - x) +
                 (char) (next_y + 97) + (8 - next_x));
         System.out.flush();
+        return new IndexPair(next_x, next_y);
     }
 
     public boolean valid(int a, int b) {
@@ -74,15 +76,6 @@ public class WKing extends Piece {
                         k_y += modify_y;
                     }
                 }
-        if (indices.x == -1) {
-//            System.out.println("Not found");
-            if (moves.size() == 0) {
-                System.out.println("resign");
-                System.out.flush();
-            } else {
-                ((WKing) board[x][y].piece).move(board, x, y, moves.get(0).x, moves.get(0).y);
-            }
-        }
         return indices;
     }
 

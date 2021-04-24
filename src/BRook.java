@@ -117,7 +117,7 @@ public class BRook extends Piece {
 
         if(pieces_found.isEmpty()){
             i--;
-            j--;
+            // j--;
             System.out.println("i: " + i + " j: " + j + " k: " + k + " l: " + l);
             //toate
             if(i != x && j != y && k != x && l != y){
@@ -280,7 +280,7 @@ public class BRook extends Piece {
             }
 
             if(i != x && j == y && k == x && l == y){
-                System.out.println("X: " + i + " Y: " + j);
+                // System.out.println("X: " + i + " Y: " + j);
                 return new IndexPair(i, y);
             }
             if(i == x && j != y && k == x && l == y) {
@@ -297,7 +297,7 @@ public class BRook extends Piece {
         }
 
         for(i = 0; i < found.size(); i++){
-            System.out.println(found.get(i));
+            // System.out.println(found.get(i));
         }
 
         int max = Integer.MIN_VALUE, position = 0;
@@ -313,11 +313,10 @@ public class BRook extends Piece {
     public IndexPair move(Square[][] board, int x, int y) {
         IndexPair temp = calculateMove(board, x, y);
         if(temp.x == -1){
-            System.out.println("resign");
+            // System.out.println("resign");
         } else {
             board[temp.x][temp.y] = board[x][y];
             board[x][y] = new Square(x, y);
-
             System.out.println("move " + (char) (y + 97) + (8 - x) +
                     (char) (temp.y + 97) + (8 - temp.x));
         }
