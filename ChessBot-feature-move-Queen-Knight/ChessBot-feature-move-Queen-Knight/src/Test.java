@@ -18,19 +18,27 @@ public class Test {
 //
 //        // pentru regina
     //    indices = c1.board[0][0].piece.move(c1.board, 0, 0);
-        indices = c1.randomPiece("white", c1.board);
-        indices = c1.randomPiece("black", c1.board);
-        System.out.println(indices.x + " "+ indices.y);
+//        indices = c1.randomPiece("white", c1.board);
+//        indices = c1.randomPiece("black", c1.board);
+//        System.out.println(indices.x + " "+ indices.y);
+//        System.out.println(c1);
+
+//        c1.board[1][0] = new Square(0,0);
+//        c1.board[5][0] = new Square(5,9, new BPawn());
+//        c1.board[0][0].piece.move(c1.board, 0, 0);
+//        System.out.println(c1);
+//        c1.board[4][0].piece.move(c1.board, 4, 0);
+//        System.out.println(c1);
+//        c1.board[4][6].piece.move(c1.board, 4, 6);
+//        System.out.println(c1);
+
+        c1.board[1][6].piece.colour = "white";
+        c1.board[0][6] = new Square(0,6);
+        c1.board[0][7].piece.move(c1.board,0,7);
+        System.out.println(c1);
+        c1.board[0][6].piece.move(c1.board, 0, 6);
         System.out.println(c1);
 
-        c1.board[1][0] = new Square(0,0);
-        c1.board[5][0] = new Square(5,9, new BPawn());
-        c1.board[0][0].piece.move(c1.board, 0, 0);
-        System.out.println(c1);
-        c1.board[4][0].piece.move(c1.board, 4, 0);
-        System.out.println(c1);
-        c1.board[4][6].piece.move(c1.board, 4, 6);
-        System.out.println(c1);
 
     //    indices = c1.board[0][3].piece.move(c1.board, 0, 3);
     //    indices = c1.board[1][3].piece.move(c1.board, 1, 3);

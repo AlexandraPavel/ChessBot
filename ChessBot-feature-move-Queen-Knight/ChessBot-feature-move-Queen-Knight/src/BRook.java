@@ -106,6 +106,35 @@ public class BRook extends Piece {
 
         ArrayList<IndexPair> found = new ArrayList<>();
         ArrayList<Piece> pieces_found = new ArrayList<>();
+
+        if(i + 1 < 8) {
+            if (i == x && board[i + 1][y].piece.colour.equals("white")) {
+                pieces_found.add(board[i + 1][y].piece);
+                found.add(new IndexPair(i + 1, y));
+            }
+        }
+
+        if(j + 1 < 8) {
+            if (j == y && board[x][j + 1].piece.colour.equals("white")) {
+                pieces_found.add(board[x][j + 1].piece);
+                found.add(new IndexPair(x, j + 1));
+            }
+        }
+
+        if(k - 1 >= 0) {
+            if (k == x && board[k - 1][y].piece.colour.equals("white")) {
+                pieces_found.add(board[k - 1][y].piece);
+                found.add(new IndexPair(k - 1, y));
+            }
+        }
+
+        if(l - 1 >= 0) {
+            if (l == y && board[x][l - 1].piece.colour.equals("white")) {
+                pieces_found.add(board[x][l - 1].piece);
+                found.add(new IndexPair(x, l - 1));
+            }
+        }
+
         if(board[i][y].piece.colour.equals("white")){
             pieces_found.add(board[i][y].piece);
             found.add(new IndexPair(i , y));
