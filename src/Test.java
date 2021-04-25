@@ -25,6 +25,8 @@ public class Test {
                 xboard_side = "white";
                 white_king_position = new IndexPair(7, 4);
                 black_king_position = new IndexPair(0, 4);
+                c1.castling_white = false;
+                c1.castling_black = false;
                 move_flag = true;
             } else if(command.startsWith("protover")) {
                 System.out.println("feature sigint=0 san=0 myname=\"Rosoga BOT\" done=1");
@@ -46,16 +48,19 @@ public class Test {
                         ArrayList<IndexPair> available_moves = ((BKing) c1.board[black_king_position.x][black_king_position.y].piece).
                             verify_moves(c1.board, black_king_position.x, black_king_position.y, is_check_result.get(1), is_check_result.get(0));
                         if ((is_check_result.get(0)).size() == 0) {
-                            indices = c1.randomPiece("black", c1.board);
-                            if (indices.x != -1 && c1.board[indices.x][indices.y].piece instanceof BKing) {
-                                if (available_moves.size() == 0) {
-                                    System.out.println("resign");
-                                    System.out.flush();
-                                } else {
-                                    white_king_position = ((BKing) c1.board[white_king_position.x][white_king_position.y].piece).
-                                        move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
-                                }
-                            } 
+                            boolean flag_rocada = c1.castling_black;
+                            indices = c1.randomPiece("black", c1.board, black_king_position);
+                            if (indices.x != -1 && flag_rocada == false && c1.castling_black == true) {
+                                black_king_position = indices;
+                            } else if (indices.x != -1 && c1.board[indices.x][indices.y].piece instanceof BKing) {
+                                    if (available_moves.size() == 0) {
+                                        System.out.println("resign");
+                                        System.out.flush();
+                                    } else {
+                                        white_king_position = ((BKing) c1.board[white_king_position.x][white_king_position.y].piece).
+                                            move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
+                                    }
+                                } 
                         } else if ((is_check_result.get(0)).size() == 1) {
                             indices = ((BKing) c1.board[black_king_position.x][black_king_position.y].piece).
                                 take_or_enter_attack(c1.board, black_king_position.x, black_king_position.y, available_moves,is_check_result.get(0).get(0));
@@ -84,16 +89,19 @@ public class Test {
                         ArrayList<IndexPair> available_moves = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
                             verify_moves(c1.board, white_king_position.x, white_king_position.y, is_check_result.get(1), is_check_result.get(0));
                         if ((is_check_result.get(0)).size() == 0) {
-                            indices = c1.randomPiece("white", c1.board);
-                            if (indices.x == -1 && c1.board[indices.x][indices.y].piece instanceof WKing) {
-                                if (available_moves.size() == 0) {
-                                    System.out.println("resign");
-                                    System.out.flush();
-                                } else {
-                                    white_king_position = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
-                                        move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
+                            boolean flag_rocada = c1.castling_white;
+                            indices = c1.randomPiece("white", c1.board, white_king_position);
+                            if (indices.x != -1 && flag_rocada == false && c1.castling_white == true) {
+                                white_king_position = indices;
+                            } else if (indices.x == -1 && c1.board[indices.x][indices.y].piece instanceof WKing) {
+                                    if (available_moves.size() == 0) {
+                                        System.out.println("resign");
+                                        System.out.flush();
+                                    } else {
+                                        white_king_position = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
+                                            move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
+                                    }
                                 }
-                            }
                         } else if ((is_check_result.get(0)).size() == 1) {
                             indices = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
                                 take_or_enter_attack(c1.board, white_king_position.x, white_king_position.y, available_moves,is_check_result.get(0).get(0));
@@ -147,16 +155,19 @@ public class Test {
                             System.out.flush();
                         }
                         if ((is_check_result.get(0)).size() == 0) {
-                            indices = c1.randomPiece("black", c1.board);
-                            if (indices.x != -1 && c1.board[indices.x][indices.y].piece.type == 'k') {
-                                if (available_moves.size() == 0) {
-                                    System.out.println("resign");
-                                    System.out.flush();
-                                } else {
-                                    white_king_position = ((BKing) c1.board[white_king_position.x][white_king_position.y].piece).
-                                        move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
-                                }
-                            } 
+                            boolean flag_rocada = c1.castling_black;
+                            indices = c1.randomPiece("black", c1.board, black_king_position);
+                            if (indices.x != -1 && flag_rocada == false && c1.castling_black == true) {
+                                black_king_position = indices;
+                            } else if (indices.x != -1 && c1.board[indices.x][indices.y].piece instanceof BKing) {
+                                    if (available_moves.size() == 0) {
+                                        System.out.println("resign");
+                                        System.out.flush();
+                                    } else {
+                                        white_king_position = ((BKing) c1.board[white_king_position.x][white_king_position.y].piece).
+                                            move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
+                                    }
+                                } 
                         } else if ((is_check_result.get(0)).size() == 1) {
                             indices = ((BKing) c1.board[black_king_position.x][black_king_position.y].piece).
                                 take_or_enter_attack(c1.board, black_king_position.x, black_king_position.y, available_moves,is_check_result.get(0).get(0));
@@ -185,16 +196,19 @@ public class Test {
                         ArrayList<IndexPair> available_moves = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
                             verify_moves(c1.board, white_king_position.x, white_king_position.y, is_check_result.get(1), is_check_result.get(0));
                         if ((is_check_result.get(0)).size() == 0) {
-                            indices = c1.randomPiece("white", c1.board);
-                            if (indices.x == -1 && c1.board[indices.x][indices.y].piece.type == 'k') {
-                                if (available_moves.size() == 0) {
-                                    System.out.println("resign");
-                                    System.out.flush();
-                                } else {
-                                    white_king_position = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
-                                        move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
+                            boolean flag_rocada = c1.castling_white;
+                            indices = c1.randomPiece("white", c1.board, white_king_position);
+                            if (indices.x != -1 && flag_rocada == false && c1.castling_white == true) {
+                                white_king_position = indices;
+                            } else if (indices.x == -1 && c1.board[indices.x][indices.y].piece instanceof WKing) {
+                                    if (available_moves.size() == 0) {
+                                        System.out.println("resign");
+                                        System.out.flush();
+                                    } else {
+                                        white_king_position = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
+                                            move(c1.board, white_king_position.x,white_king_position.y, available_moves.get(0).x, available_moves.get(0).y);
+                                    }
                                 }
-                            }
                         } else if ((is_check_result.get(0)).size() == 1) {
                             indices = ((WKing) c1.board[white_king_position.x][white_king_position.y].piece).
                                 take_or_enter_attack(c1.board, white_king_position.x, white_king_position.y, available_moves,is_check_result.get(0).get(0));

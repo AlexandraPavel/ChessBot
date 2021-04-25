@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 
 public class WRook extends Piece {
+    public boolean moved;
     public WRook() {
         super("white", 'r', 5);
+        moved = false;
     }
 
     public IndexPair force_move (Square[][] board,int x,int y,IndexPair move) {
@@ -15,6 +17,7 @@ public class WRook extends Piece {
         if (y == move.y && (x + 1) == move.x ) {
             board[move.x][move.y] = board[x_temp][y_temp];
             board[x_temp][y_temp] = new Square(x_temp,x_temp);
+            ((WRook) board[move.x][move.y].piece).moved = true;
             System.out.println("move " + (char) (y_temp + 97) + (8 - x_temp) +
                     (char) (move.y + 97) + (8 - move.x));
             System.out.flush();
@@ -29,6 +32,7 @@ public class WRook extends Piece {
         if ((y - 1) == move.y && x == move.x ) {
             board[move.x][move.y] = board[x_temp][y_temp];
             board[x_temp][y_temp] = new Square(x_temp,x_temp);
+            ((WRook) board[move.x][move.y].piece).moved = true;
             System.out.println("move " + (char) (y_temp + 97) + (8 - x_temp) +
                     (char) (move.y + 97) + (8 - move.x));
             System.out.flush();
@@ -42,6 +46,7 @@ public class WRook extends Piece {
         if ((y + 1) == move.y && x == move.x) {
             board[move.x][move.y] = board[x_temp][y_temp];
             board[x_temp][y_temp] = new Square(x_temp,x_temp);
+            ((WRook) board[move.x][move.y].piece).moved = true;
             System.out.println("move " + (char) (y_temp + 97) + (8 - x_temp) +
                     (char) (move.y + 97) + (8 - move.x));
             System.out.flush();
@@ -56,6 +61,7 @@ public class WRook extends Piece {
         if (y == move.y && (x - 1) == move.x) {
             board[move.x][move.y] = board[x_temp][y_temp];
             board[x_temp][y_temp] = new Square(x_temp,x_temp);
+            ((WRook) board[move.x][move.y].piece).moved = true;
             System.out.println("move " + (char) (y_temp + 97) + (8 - x_temp) +
                     (char) (move.y + 97) + (8 - move.x));
             System.out.flush();
@@ -317,7 +323,7 @@ public class WRook extends Piece {
         } else {
             board[temp.x][temp.y] = board[x][y];
             board[x][y] = new Square(x, y);
-
+            ((WRook) board[temp.x][temp.y].piece).moved = true;
             System.out.println("move " + (char) (y + 97) + (8 - x) +
                     (char) (temp.y + 97) + (8 - temp.x));
         }
