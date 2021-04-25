@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class BBishop extends Piece {
     public BBishop() {
         super("black", 'b', 3);

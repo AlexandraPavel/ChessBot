@@ -106,26 +106,24 @@ public class BRook extends Piece {
 
         ArrayList<IndexPair> found = new ArrayList<>();
         ArrayList<Piece> pieces_found = new ArrayList<>();
-        if(board[i][y].piece.colour.equals("white")){
+        if (board[i][y].piece.colour.equals("white")){
             pieces_found.add(board[i][y].piece);
             found.add(new IndexPair(i , y));
         }
-        if(board[x][j].piece.colour.equals("white")){
+        if (board[x][j].piece.colour.equals("white")) {
             pieces_found.add(board[x][j].piece);
             found.add(new IndexPair(x ,j));
         }
-        if(board[k][y].piece.colour.equals("white")){
+        if (board[k][y].piece.colour.equals("white")) {
             pieces_found.add(board[k][y].piece);
             found.add(new IndexPair(k, y));
         }
-        if(board[x][l].piece.colour.equals("white")){
+        if (board[x][l].piece.colour.equals("white")) {
             pieces_found.add(board[x][l].piece);
             found.add(new IndexPair(x, l));
         }
 
-        if(pieces_found.isEmpty()){
-            // System.out.println("i: " + i + " j: " + j + " k: " + k + " l: " + l);
-            //toate
+        if (pieces_found.isEmpty()) {
             if(i != x && j != y && k != x && l != y){
                 int max = i;
                 if(max < j){
@@ -137,7 +135,6 @@ public class BRook extends Piece {
                 if(max < l){
                     max = l;
                 }
-
                 if(max == i){
                     return new IndexPair(i - 1, y);
                 }
@@ -286,7 +283,6 @@ public class BRook extends Piece {
             }
 
             if(i != x && j == y && k == x && l == y){
-                // System.out.println("X: " + i + " Y: " + j);
                 return new IndexPair(i - 1, y);
             }
             if(i == x && j != y && k == x && l == y) {
@@ -300,10 +296,6 @@ public class BRook extends Piece {
             }
 
             return new IndexPair(-1, -1);
-        }
-
-        for(i = 0; i < found.size(); i++){
-            // System.out.println(found.get(i));
         }
 
         int max = Integer.MIN_VALUE, position = 0;

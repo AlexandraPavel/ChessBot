@@ -1,8 +1,6 @@
-import java.util.ArrayList;
-
 public class WBishop extends Piece {
     public WBishop() {
-        super("black", 'b', 3);
+        super("white", 'b', 3);
     }
     public IndexPair force_move(Square[][] board,int x,int y,IndexPair move) {
         IndexPair indices = new IndexPair();

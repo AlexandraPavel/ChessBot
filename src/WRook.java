@@ -284,8 +284,7 @@ public class WRook extends Piece {
                 return new IndexPair(k + 1, y);
             }
 
-            if(i != x && j == y && k == x && l == y){
-                // System.out.println("X: " + i + " Y: " + j);
+            if(i != x && j == y && k == x && l == y) {
                 return new IndexPair(i - 1, y);
             }
             if(i == x && j != y && k == x && l == y) {

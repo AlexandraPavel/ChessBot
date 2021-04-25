@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Default extends Piece{
     public Default() {
         super();

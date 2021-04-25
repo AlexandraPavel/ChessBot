@@ -79,23 +79,29 @@ public class WKing extends Piece {
         return indices;
     }
 
-    public ArrayList<IndexPair> verify_moves(Square[][] board, int x, int y, ArrayList<IndexPair> illegal_moves) {
+   
+    public ArrayList<IndexPair> verify_moves(Square[][] board, int x, int y, ArrayList<IndexPair> illegal_moves, ArrayList<IndexPair> source_array) {
         ArrayList<IndexPair> moves = new ArrayList<>();
-        if (valid(x - 1, y - 1) && board[x - 1][y - 1].piece.type == 'x')
+        IndexPair source = new IndexPair();
+        if (source_array.size() != 0) {
+            source.x = source_array.get(0).x;
+            source.y = source_array.get(0).y;
+        }
+        if (valid(x - 1, y - 1) && (board[x - 1][y - 1].piece.type == 'x' || (x - 1 == source.x && y - 1 == source.y)))
             moves.add(new IndexPair(x - 1, y - 1));
-        if (valid(x - 1, y) && board[x - 1][y].piece.type == 'x')
+        if (valid(x - 1, y) && (board[x - 1][y].piece.type == 'x' || (x - 1 == source.x && y == source.y)))
             moves.add(new IndexPair(x - 1, y));
-        if (valid(x - 1, y + 1) && board[x - 1][y + 1].piece.type == 'x')
+        if (valid(x - 1, y + 1) && (board[x - 1][y + 1].piece.type == 'x' || (x - 1 == source.x && y + 1 == source.y)))
             moves.add(new IndexPair(x - 1, y + 1));
-        if (valid(x, y - 1) && board[x][y - 1].piece.type == 'x')
+        if (valid(x, y - 1) && (board[x][y - 1].piece.type == 'x' || (x == source.x && y - 1 == source.y)))
             moves.add(new IndexPair(x , y - 1));
-        if (valid(x, y + 1) && board[x][y + 1].piece.type == 'x')
+        if (valid(x, y + 1) && (board[x][y + 1].piece.type == 'x' || (x == source.x && y + 1 == source.y)))
             moves.add(new IndexPair(x, y + 1));
-        if (valid(x + 1, y - 1) && board[x + 1][y - 1].piece.type == 'x')
+        if (valid(x + 1, y - 1) && (board[x + 1][y - 1].piece.type == 'x' || (x + 1 == source.x && y - 1 == source.y)))
             moves.add(new IndexPair(x + 1, y - 1));
-        if (valid(x + 1, y) && board[x + 1][y].piece.type == 'x')
+        if (valid(x + 1, y) && (board[x + 1][y].piece.type == 'x' || (x + 1 == source.x && y == source.y)))
             moves.add(new IndexPair(x + 1, y));
-        if (valid(x + 1, y + 1) && board[x + 1][y + 1].piece.type == 'x')
+        if (valid(x + 1, y + 1) && (board[x + 1][y + 1].piece.type == 'x' || (x + 1 == source.x && y + 1 == source.y)))
             moves.add(new IndexPair(x + 1, y + 1));
         for (IndexPair move : illegal_moves)
             moves.remove(move);
@@ -113,7 +119,6 @@ public class WKing extends Piece {
 
         return result;
     }
-
     public ArrayList<ArrayList<IndexPair>> is_in_check(Square[][] board, int x, int y) {
         ArrayList<IndexPair> check_positions = new ArrayList<>();
         ArrayList<IndexPair> not_good_moves = new ArrayList<>();

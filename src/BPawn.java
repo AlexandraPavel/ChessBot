@@ -34,7 +34,6 @@ public class BPawn extends Piece {
             System.out.println("move " + (char) (start_y + 97) + (8 - start_x) +
                     (char) (move.y + 97) + (8 - move.x));
             System.out.flush();
-            System.out.println(start_y +" " + start_x);
         }
         return indices;
     }

@@ -25,7 +25,6 @@ public class BKing extends Piece {
         System.out.println("move " + (char) (y + 97) + (8 - x) +
                 (char) (next_y + 97) + (8 - next_x));
         System.out.flush();
-        // System.out.println("Din " + x + " " + y + " in " + next_x + " " + next_y);
         return new IndexPair(next_x, next_y);
     }
 
@@ -79,23 +78,28 @@ public class BKing extends Piece {
         return indices;
     }
 
-    public ArrayList<IndexPair> verify_moves(Square[][] board, int x, int y, ArrayList<IndexPair> illegal_moves) {
+    public ArrayList<IndexPair> verify_moves(Square[][] board, int x, int y, ArrayList<IndexPair> illegal_moves, ArrayList<IndexPair> source_array) {
         ArrayList<IndexPair> moves = new ArrayList<>();
-        if (valid(x - 1, y - 1) && board[x - 1][y - 1].piece.type == 'x')
+        IndexPair source = new IndexPair();
+        if (source_array.size() != 0) {
+            source.x = source_array.get(0).x;
+            source.y = source_array.get(0).y;
+        }
+        if (valid(x - 1, y - 1) && (board[x - 1][y - 1].piece.type == 'x' || (x - 1 == source.x && y - 1 == source.y)))
             moves.add(new IndexPair(x - 1, y - 1));
-        if (valid(x - 1, y) && board[x - 1][y].piece.type == 'x')
+        if (valid(x - 1, y) && (board[x - 1][y].piece.type == 'x' || (x - 1 == source.x && y == source.y)))
             moves.add(new IndexPair(x - 1, y));
-        if (valid(x - 1, y + 1) && board[x - 1][y + 1].piece.type == 'x')
+        if (valid(x - 1, y + 1) && (board[x - 1][y + 1].piece.type == 'x' || (x - 1 == source.x && y + 1 == source.y)))
             moves.add(new IndexPair(x - 1, y + 1));
-        if (valid(x, y - 1) && board[x][y - 1].piece.type == 'x')
+        if (valid(x, y - 1) && (board[x][y - 1].piece.type == 'x' || (x == source.x && y - 1 == source.y)))
             moves.add(new IndexPair(x , y - 1));
-        if (valid(x, y + 1) && board[x][y + 1].piece.type == 'x')
+        if (valid(x, y + 1) && (board[x][y + 1].piece.type == 'x' || (x == source.x && y + 1 == source.y)))
             moves.add(new IndexPair(x, y + 1));
-        if (valid(x + 1, y - 1) && board[x + 1][y - 1].piece.type == 'x')
+        if (valid(x + 1, y - 1) && (board[x + 1][y - 1].piece.type == 'x' || (x + 1 == source.x && y - 1 == source.y)))
             moves.add(new IndexPair(x + 1, y - 1));
-        if (valid(x + 1, y) && board[x + 1][y].piece.type == 'x')
+        if (valid(x + 1, y) && (board[x + 1][y].piece.type == 'x' || (x + 1 == source.x && y == source.y)))
             moves.add(new IndexPair(x + 1, y));
-        if (valid(x + 1, y + 1) && board[x + 1][y + 1].piece.type == 'x')
+        if (valid(x + 1, y + 1) && (board[x + 1][y + 1].piece.type == 'x' || (x + 1 == source.x && y + 1 == source.y)))
             moves.add(new IndexPair(x + 1, y + 1));
         for (IndexPair move : illegal_moves)
             moves.remove(move);
@@ -110,7 +114,6 @@ public class BKing extends Piece {
             if (is_check_result.get(0).size() == 0)
                 result.add(move);
         }
-
         return result;
     }
 
@@ -164,10 +167,7 @@ public class BKing extends Piece {
                     check_positions.add(new IndexPair(i, j));
                     not_good_moves.add(new IndexPair(x - 1, y - 1));
                     not_good_moves.add(new IndexPair(x + 1, y + 1));
-                } else if(board[i][j].piece.colour.equals("white") && (board[i][j].piece.type == 'p' && i == x - 1 && j == y - 1)) {
-                    check_positions.add(new IndexPair(i, j));
-                    not_good_moves.add(new IndexPair(x - 1, y - 1));
-                }
+                } 
                 break;
             }
         }
@@ -177,6 +177,9 @@ public class BKing extends Piece {
                     check_positions.add(new IndexPair(i, j));
                     not_good_moves.add(new IndexPair(x + 1, y + 1));
                     not_good_moves.add(new IndexPair(x - 1, y - 1));
+                } else if(board[i][j].piece.colour.equals("white") && (board[i][j].piece.type == 'p' && i == x + 1 && j == y + 1)) {
+                    check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x + 1, y + 1));
                 }
                 break;
             }
@@ -187,10 +190,7 @@ public class BKing extends Piece {
                     check_positions.add(new IndexPair(i, j));
                     not_good_moves.add(new IndexPair(x - 1, y + 1));
                     not_good_moves.add(new IndexPair(x + 1, y - 1));
-                } else if(board[i][j].piece.colour.equals("white") && (board[i][j].piece.type == 'p' && i == x - 1 && j == y + 1)) {
-                    check_positions.add(new IndexPair(i, j));
-                    not_good_moves.add(new IndexPair(x - 1, y + 1));
-                }
+                } 
                 break;
             }
         }
@@ -200,6 +200,9 @@ public class BKing extends Piece {
                     check_positions.add(new IndexPair(i, j));
                     not_good_moves.add(new IndexPair(x + 1, y - 1));
                     not_good_moves.add(new IndexPair(x - 1, y + 1));
+                } else if(board[i][j].piece.colour.equals("white") && (board[i][j].piece.type == 'p' && i == x + 1 && j == y - 1)) {
+                    check_positions.add(new IndexPair(i, j));
+                    not_good_moves.add(new IndexPair(x + 1, y - 1));
                 }
                 break;
             }
