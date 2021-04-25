@@ -16,16 +16,16 @@ public class BPawn extends Piece {
         int start_x, start_y;
         start_x = x;
         start_y = y;
-        if (valid(x - 1, y - 1) && x - 1 == move.x && y - 1 == move.y && 
-            board[x - 1][y - 1].piece.colour.compareTo("white") == 0) {
-            indices.x = x - 1;
+        if (valid(x + 1, y - 1) && x + 1 == move.x && y - 1 == move.y && 
+            board[x + 1][y - 1].piece.colour.compareTo("white") == 0) {
+            indices.x = x + 1;
             indices.y = y - 1;
-        } else if (valid(x - 1, y + 1) && x - 1 == move.x && y + 1 == move.y &&
-            board[x - 1][y + 1].piece.colour.compareTo("white") == 0) {
-            indices.x = x - 1;
+        } else if (valid(x + 1, y + 1) && x + 1 == move.x && y + 1 == move.y &&
+            board[x + 1][y + 1].piece.colour.compareTo("white") == 0) {
+            indices.x = x + 1;
             indices.y = y + 1;
-        } else if (valid(x - 1, y) && x - 1 == move.x && y == move.y) {
-            indices.x = x - 1;
+        } else if (valid(x + 1, y) && x + 1 == move.x && y == move.y && board[x + 1][y].piece.type == 'x') {
+            indices.x = x + 1;
             indices.y = y;
         }
         if (indices.x != -1 && indices.y != -1) {
@@ -34,6 +34,7 @@ public class BPawn extends Piece {
             System.out.println("move " + (char) (start_y + 97) + (8 - start_x) +
                     (char) (move.y + 97) + (8 - move.x));
             System.out.flush();
+            System.out.println(start_y +" " + start_x);
         }
         return indices;
     }
@@ -61,7 +62,7 @@ public class BPawn extends Piece {
             return indices;
         }
         if (y == 0) {
-            if (board[x + 1][y + 1].piece.type != 'x') {
+            if (board[x + 1][y + 1].piece.colour.compareTo("white") == 0) {
                 indices.x = x + 1;
                 indices.y = y + 1;
             } else {
@@ -70,7 +71,7 @@ public class BPawn extends Piece {
             return indices;
         }
         if (y == 7) {
-            if (board[x + 1][y - 1].piece.type != 'x') {
+            if (board[x + 1][y - 1].piece.colour.compareTo("white") == 0) {
                 indices.x = x + 1;
                 indices.y = y - 1;
             } else {
@@ -78,17 +79,17 @@ public class BPawn extends Piece {
             }
             return indices;
         }
-        if (board[x + 1][y - 1].piece.type != 'x' && board[x + 1][y + 1].piece.type != 'x') {
+        if (board[x + 1][y - 1].piece.colour.compareTo("white") == 0 && board[x + 1][y + 1].piece.colour.compareTo("white") == 0) {
             indices.x = x + 1;
             if (board[x + 1][y - 1].piece.score > board[x + 1][y + 1].piece.score) {
                 indices.y = y - 1;
             } else {
                 indices.y = y + 1;
             }
-        } else if (board[x + 1][y - 1].piece.type != 'x') {
+        } else if (board[x + 1][y - 1].piece.colour.compareTo("white") == 0) {
             indices.x = x + 1;
             indices.y = y - 1;
-        } else if (board[x + 1][y + 1].piece.type != 'x') {
+        } else if (board[x + 1][y + 1].piece.colour.compareTo("white") == 0) {
             indices.x = x + 1;
             indices.y = y + 1;
         } else {
@@ -101,7 +102,7 @@ public class BPawn extends Piece {
         IndexPair indices;
         indices = calculate_move(board, x, y);
         if (indices.x == -1) {
-            System.out.println("resign");
+            // System.out.println("resign");
         } else {
             if (indices.x != 7) {
                 board[indices.x][indices.y] = board[x][y];

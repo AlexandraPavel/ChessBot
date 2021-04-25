@@ -25,7 +25,8 @@ public class WPawn extends Piece {
             board[x - 1][y + 1].piece.colour.compareTo("black") == 0) {
             indices.x = x - 1;
             indices.y = y + 1;
-        } else if (valid(x - 1, y) && x - 1 == move.x && y == move.y) {
+        } else if (valid(x - 1, y) && x - 1 == move.x && y == move.y &&
+            board[x - 1][y].piece.type == 'x') {
             indices.x = x - 1;
             indices.y = y;
         }
@@ -62,7 +63,7 @@ public class WPawn extends Piece {
             return indices;
         }
         if (y == 0) {
-            if (board[x - 1][y + 1].piece.type != 'x') {
+            if (board[x - 1][y + 1].piece.colour.compareTo("black") == 0) {
                 indices.x = x - 1;
                 indices.y = y + 1;
             } else {
@@ -71,7 +72,7 @@ public class WPawn extends Piece {
             return indices;
         }
         if (y == 7) {
-            if (board[x - 1][y - 1].piece.type != 'x') {
+            if (board[x - 1][y - 1].piece.colour.compareTo("black") == 0) {
                 indices.x = x - 1;
                 indices.y = y - 1;
             } else {
@@ -79,17 +80,17 @@ public class WPawn extends Piece {
             }
             return indices;
         }
-        if (board[x - 1][y - 1].piece.type != 'x' && board[x - 1][y + 1].piece.type != 'x') {
+        if (board[x - 1][y - 1].piece.colour.compareTo("black") == 0 && board[x - 1][y + 1].piece.colour.compareTo("black") == 0) {
             indices.x = x - 1;
             if (board[x - 1][y + 1].piece.score > board[x - 1][y - 1].piece.score) {
                 indices.y = y + 1;
             } else {
                 indices.y = y - 1;
             }
-        } else if (board[x - 1][y - 1].piece.type != 'x') {
+        } else if (board[x - 1][y - 1].piece.colour.compareTo("black") == 0 ) {
             indices.x = x - 1;
             indices.y = y - 1;
-        } else if (board[x - 1][y + 1].piece.type != 'x') {
+        } else if (board[x - 1][y + 1].piece.colour.compareTo("black") == 0) {
             indices.x = x - 1;
             indices.y = y + 1;
         } else {
@@ -102,7 +103,7 @@ public class WPawn extends Piece {
         IndexPair indices;
         indices = calculate_move(board, x, y);
         if (indices.x == -1) {
-            System.out.println("resign");
+            // System.out.println("resign");
         } else {
             if (indices.x != 0) {
                 board[indices.x][indices.y] = board[x][y];

@@ -73,28 +73,36 @@ public class WRook extends Piece {
             while (board[i + 1][y].piece.type == 'x' && i < 6) {
                 i++;
             }
-            i += 1;
+            if(i != x) {
+                i += 1;
+            }
         }
         //ma duc la dreapta
         if(j + 1 != 8) {
             while (board[x][j + 1].piece.type == 'x' && j < 6) {
                 j++;
             }
-            j += 1;
+            if(j != y) {
+                j += 1;
+            }
         }
         //ma duc in sus
         if(k - 1 > 0) {
             while (board[k - 1][y].piece.type == 'x' && k - 1 > 0) {
                 k--;
             }
-            k -= 1;
+            if(k != x) {
+                k -= 1;
+            }
         }
         //ma duc la stanga
         if(l - 1 >= 0) {
             while (board[x][l - 1].piece.type == 'x' && l - 1 > 0) {
                 l--;
             }
-            l -= 1;
+            if(l != y) {
+                l -= 1;
+            }
         }
 
         ArrayList<IndexPair> found = new ArrayList<>();
@@ -117,10 +125,6 @@ public class WRook extends Piece {
         }
 
         if(pieces_found.isEmpty()){
-            i--;
-            j--;
-            // System.out.println("i: " + i + " j: " + j + " k: " + k + " l: " + l);
-            //toate
             if(i != x && j != y && k != x && l != y){
                 int max = i;
                 if(max < j){
@@ -134,16 +138,16 @@ public class WRook extends Piece {
                 }
 
                 if(max == i){
-                    return new IndexPair(i, y);
+                    return new IndexPair(i - 1, y);
                 }
                 if(max == j){
-                    return new IndexPair(x, j);
+                    return new IndexPair(x, j - 1);
                 }
                 if(max == k){
-                    return new IndexPair(k ,y);
+                    return new IndexPair(k + 1 ,y);
                 }
                 if(max == l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
             }
             //123
@@ -156,13 +160,13 @@ public class WRook extends Piece {
                     max = k;
                 }
                 if(max == i){
-                    return new IndexPair(i, y);
+                    return new IndexPair(i - 1, y);
                 }
                 if(max == j){
-                    return new IndexPair(x, j);
+                    return new IndexPair(x, j - 1);
                 }
                 if(max == k){
-                    return new IndexPair(k, y);
+                    return new IndexPair(k + 1, y);
                 }
             }
 
@@ -176,13 +180,13 @@ public class WRook extends Piece {
                     max = l;
                 }
                 if(max == i){
-                    return new IndexPair(i, y);
+                    return new IndexPair(i - 1, y);
                 }
                 if(max == j){
-                    return new IndexPair(x, j);
+                    return new IndexPair(x, j - 1);
                 }
                 if(max == l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
             }
 
@@ -196,13 +200,13 @@ public class WRook extends Piece {
                     max = l;
                 }
                 if(max == i){
-                    return new IndexPair(i, y);
+                    return new IndexPair(i - 1, y);
                 }
                 if(max == k){
-                    return new IndexPair(k, y);
+                    return new IndexPair(k + 1, y);
                 }
                 if(max == l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
             }
 
@@ -216,13 +220,13 @@ public class WRook extends Piece {
                     max = l;
                 }
                 if(max == i){
-                    return new IndexPair(x, j);
+                    return new IndexPair(x, j - 1);
                 }
                 if(max == k){
-                    return new IndexPair(k, y);
+                    return new IndexPair(k + 1, y);
                 }
                 if(max == l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
             }
 
@@ -230,27 +234,27 @@ public class WRook extends Piece {
             if(i != x && j != y && k == x && l == y){
                 int max = i;
                 if(max < j){
-                    return new IndexPair(x, j);
+                    return new IndexPair(x, j - 1);
                 }
-                return new IndexPair(i, y);
+                return new IndexPair(i - 1, y);
             }
 
             //13
             if(i != x && j == y && k != x && l == y){
                 int max = i;
                 if(max < k){
-                    return new IndexPair(k, y);
+                    return new IndexPair(k + 1, y);
                 }
-                return new IndexPair(i, y);
+                return new IndexPair(i - 1, y);
             }
 
             //14
             if(i != x && j == y && k == x && l != y){
                 int max = i;
                 if(max < l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
-                return new IndexPair(i, y);
+                return new IndexPair(i - 1, y);
             }
 
             //23
@@ -259,39 +263,39 @@ public class WRook extends Piece {
                 if(max < k){
                     return new IndexPair(k, y);
                 }
-                return new IndexPair(x, j);
+                return new IndexPair(x, j - 1);
             }
 
             //24
             if(i == x && j != y && k == x && l != y){
                 int max = j;
                 if(max < l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
-                return new IndexPair(x, j);
+                return new IndexPair(x, j - 1);
             }
 
             //34
             if(i == x && j == y && k != x && l != y){
                 int max = k;
                 if(max < l){
-                    return new IndexPair(x, l);
+                    return new IndexPair(x, l + 1);
                 }
-                return new IndexPair(k, y);
+                return new IndexPair(k + 1, y);
             }
 
             if(i != x && j == y && k == x && l == y){
                 // System.out.println("X: " + i + " Y: " + j);
-                return new IndexPair(i, y);
+                return new IndexPair(i - 1, y);
             }
             if(i == x && j != y && k == x && l == y) {
-                return new IndexPair(x, j);
+                return new IndexPair(x, j - 1);
             }
             if(i == x && j == y && k != x && l == y){
-                return new IndexPair(k, y);
+                return new IndexPair(k + 1, y);
             }
             if(i == x && j == y && k == x && l != y){
-                return new IndexPair(x, l);
+                return new IndexPair(x, l + 1);
             }
 
             return new IndexPair(-1, -1);

@@ -10,68 +10,176 @@ recognized 'normal' (-1) as variant normal
 GameEnds(0, (null), 2)
 shuffleOpenings = 0
 StartChildProcess (dir=".") make run
-208 >first : xboard
+410 >first : xboard
 protover 2
-216 <first : make[1]: Entering directory '/home/alex/Desktop/Proiect PA/ChessBot/src'
-216 <first : java Test
-391 <first : feature sigint=0 san=0 myname="Rosoga BOT" done=1
-391 >first : accepted sigint
-391 >first : accepted san
-391 >first : accepted myname
-391 >first : accepted done
-393 >first : new
+426 <first : make[1]: Entering directory '/home/alex/Desktop/Proiect PA/ChessBot/src'
+426 <first : java Test
+746 <first : feature sigint=0 san=0 myname="Rosoga BOT" done=1
+750 >first : accepted sigint
+750 >first : accepted san
+750 >first : accepted myname
+750 >first : accepted done
+754 >first : new
 random
-393 >first : level 40 5 0
-393 >first : post
-393 >first : hard
-4311 >first : black
-4311 >first : time 30000
-4311 >first : otim 30000
-4311 >first : white
+754 >first : level 40 5 0
+754 >first : post
+754 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+7370 >first : time 30000
+7371 >first : otim 30000
 book hit = (NULL)
-4311 >first : go
-nps: w=-1, b=-1
-4355 <first : i: 6 j: 0 k: 6 l: 0
-4383 <first : move a1a2
-Reset(1, 1) from gameMode 1
-recognized 'normal' (-1) as variant normal
-GameEnds(0, (null), 2)
-22760 >first : force
-shuffleOpenings = 0
-22761 >first : new
-random
-22762 >first : level 40 5 0
-22762 >first : post
-22762 >first : hard
-nps: w=-1, b=-1
-nps: w=-1, b=-1
-24425 >first : time 30000
-24425 >first : otim 30000
+7371 >first : d2d4
+7474 <first : d2d4
+7510 <first : move g8f6
+10065 >first : time 29986
+10066 >first : otim 29744
 book hit = (NULL)
-24426 >first : c2c4
-24502 <first : c2c4
-24502 <first : i: 0 j: 6 k: 0 l: 6
-24502 <first : move h8g8
+10066 >first : e2e3
+10148 <first : e2e3
+10148 <first : move h8g8
+12131 >first : time 29977
+12131 >first : otim 29546
+book hit = (NULL)
+12131 >first : f2f3
+12210 <first : f2f3
+12211 <first : move b8a6
+14656 >first : time 29969
+14658 >first : otim 29301
+book hit = (NULL)
+14659 >first : d4d5
+14744 <first : d4d5
+14744 <first : move a8b8
+17049 >first : time 29960
+17050 >first : otim 29071
+book hit = (NULL)
+17051 >first : c2c4
+17135 <first : c2c4
+17136 <first : move h7h5
+19245 >first : time 29951
+19246 >first : otim 28860
+book hit = (NULL)
+19247 >first : d5d6
+19334 <first : d5d6
+19334 <first : move g7g5
+21572 >first : time 29942
+21573 >first : otim 28636
+book hit = (NULL)
+21573 >first : d6c7
+21658 <first : d6c7
+21659 <first : move g8g6
+24726 >first : time 29934
+24731 >first : otim 28330
+book hit = (NULL)
+24731 >first : c7d8q
+24738 <first : c7d8q
+24754 <first : move f8h6
 Reset(1, 1) from gameMode 2
 recognized 'normal' (-1) as variant normal
 GameEnds(0, (null), 2)
-60861 >first : force
+67013 >first : force
 shuffleOpenings = 0
-60862 >first : new
+67021 >first : new
 random
-60862 >first : level 40 5 0
-60862 >first : post
-60862 >first : hard
+67023 >first : level 40 5 0
+67023 >first : post
+67023 >first : hard
 nps: w=-1, b=-1
 nps: w=-1, b=-1
-69421 >first : time 30000
-69421 >first : otim 30000
+71345 >first : time 30000
+71346 >first : otim 30000
 book hit = (NULL)
-69421 >first : g2g4
-69496 <first : g2g4
-69496 <first : i: 0 j: 6 k: 0 l: 6
-69496 <first : move h8g8
-GameEnds(29, xboard exit, 2)
-220250 >first : result * {xboard exit}
-220250 >first : force
-220250 >first : quit
+71348 >first : e2e4
+71439 <first : e2e4
+71441 <first : move g8f6
+78450 >first : time 29990
+78455 >first : otim 29299
+book hit = (NULL)
+78455 >first : d1h5
+78564 <first : d1h5
+78564 <first : move h8g8
+80873 >first : time 29978
+80874 >first : otim 29068
+book hit = (NULL)
+80874 >first : h5f7
+80974 <first : h5f7
+80974 <first : 
+80974 <first : Regele trebuie sa mute sau alta piesa trebuie sa intervina
+80974 <first : Not found
+80974 <first : resign
+GameEnds(26, Black resigns, 1)
+80975 >first : result 1-0 {Black resigns}
+80975 >first : force
+Reset(1, 1) from gameMode 8
+recognized 'normal' (-1) as variant normal
+GameEnds(0, (null), 2)
+shuffleOpenings = 0
+88766 >first : new
+random
+88771 >first : level 40 5 0
+88773 >first : post
+88774 >first : hard
+nps: w=-1, b=-1
+nps: w=-1, b=-1
+95441 >first : time 30000
+95441 >first : otim 30000
+book hit = (NULL)
+95442 >first : d2d4
+95523 <first : d2d4
+95523 <first : move g8f6
+97923 >first : time 29991
+97924 >first : otim 29760
+book hit = (NULL)
+97924 >first : c2c4
+98021 <first : c2c4
+98021 <first : move h8g8
+101113 >first : time 29981
+101113 >first : otim 29450
+book hit = (NULL)
+101113 >first : d1a4
+101218 <first : d1a4
+101223 <first : move b8a6
+103210 >first : time 29970
+103212 >first : otim 29252
+book hit = (NULL)
+103216 >first : a4d7
+103328 <first : a4d7
+103328 <first : 
+103328 <first : Regele trebuie sa mute sau alta piesa trebuie sa intervina
+103328 <first : move c8d7
+107097 >first : time 29958
+107098 >first : otim 28875
+book hit = (NULL)
+107100 >first : d4d5
+107187 <first : d4d5
+107187 <first : move d8c8
+109686 >first : time 29949
+109687 >first : otim 28625
+book hit = (NULL)
+109687 >first : d5d6
+109770 <first : d5d6
+109774 <first : move c8b8
+111558 >first : time 29941
+111559 >first : otim 28447
+book hit = (NULL)
+111559 >first : d6c7
+111640 <first : d6c7
+111640 <first : move b8c7
+114368 >first : time 29932
+114369 >first : otim 28174
+book hit = (NULL)
+114369 >first : c4c5
+114456 <first : c4c5
+114463 <first : move a8d8
+116280 >first : time 29923
+116285 >first : otim 27992
+book hit = (NULL)
+116286 >first : c5c6
+116370 <first : c5c6
+116370 <first : move d8b8
+117981 >first : time 29914
+117981 >first : otim 27831
+book hit = (NULL)
+117981 >first : c6d7
+117984 <first : c6d7
+117984 <first : move b8d8

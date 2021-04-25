@@ -54,10 +54,11 @@ public class ChessBoard {
         if (color.compareTo("white") == 0){
             for (int i = 7; i >= 0; i--) {
                 for (int j = 0; j < 8; j++) {
+                    // System.out.println("Fraieri suntem "+board[i][j].piece.type);
                     if ((board[i][j].piece.type != 'x') && (board[i][j].piece.colour.compareTo("white") == 0)) {
                         indices.x = i;
                         indices.y = j;
-                        if (board[indices.x][indices.y].piece instanceof WKing) {
+                        if (board[indices.x][indices.y].piece.type == 'k') {
 //                            System.out.println("\nAm ales Regele si va trebui sa vad cum fac mutatrea :((");
                             continue;
                         } else {
@@ -71,12 +72,21 @@ public class ChessBoard {
         } else {
             for (int i = 0; i < 8; i++) {
                 for (int j = 7; j >= 0; j--) {
+                    // System.out.println("Fraieri suntem "+board[i][j].piece.type);
                     if ((board[i][j].piece.type != 'x') && (board[i][j].piece.colour.compareTo("black") == 0)) {
                         indices.x = i;
                         indices.y = j;
-                        if (board[indices.x][indices.y].piece instanceof BKing) {
+                        if (board[indices.x][indices.y].piece.type == 'k') {
 //                            System.out.println("\nAm ales Regele si va trebui sa vad cum fac mutatrea :((");
-                            continue;
+                            ArrayList<ArrayList<IndexPair>> is_check_result = ((BKing)board[i][j].piece).
+                                is_in_check(board,i, j);
+                            ArrayList<IndexPair> available_moves = ((BKing) board[i][j].piece).
+                                verify_moves(board, i, j, is_check_result.get(1));
+                            // System.out.println(c1);
+                            if ((is_check_result.get(0)).size() == 0)
+                                continue;
+                            else
+                                System.out.println("Wtf Romania Ce naiba");
                         } else {
                             indices = board[indices.x][indices.y].piece.move(board, indices.x, indices.y);
                             if (indices.x != -1 && indices.y != -1)

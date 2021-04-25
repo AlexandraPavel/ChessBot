@@ -25,6 +25,7 @@ public class BKing extends Piece {
         System.out.println("move " + (char) (y + 97) + (8 - x) +
                 (char) (next_y + 97) + (8 - next_x));
         System.out.flush();
+        // System.out.println("Din " + x + " " + y + " in " + next_x + " " + next_y);
         return new IndexPair(next_x, next_y);
     }
 
@@ -53,7 +54,6 @@ public class BKing extends Piece {
             modify_y = 0;
         else
             modify_y = -1;
-
         int k_x, k_y;
         k_x = Math.min(x, check_source.x);
         k_y = Math.min(y, check_source.y);
