@@ -1,0 +1,101 @@
+Proiect PA
+
+Nume Echipa : SkyForce
+
+Echipa : 
+	Grigore Cosmin 322CC
+	Mantu David Nicolae 322CC
+	Pavel Elena Alexandra 322CC
+	Rosoga Ionut Cristian 322CC
+
+Instructiuni de compilare:
+	Proiectul se compileaza cu comanda "javac \*.java" din Makefile.
+	Pentru a porni jocul, se ruleaza comanda "make build". Pentru a crea
+	executabilul se foloseste comanda "make run". Pentru a incarca botul
+	pe interfata xboard se va folosi comanda "make play".
+	Fisierele .class pot fi sterse din proiect, folosind comanda "make clean".
+
+		ETAPA 2
+
+Timp implementare: 3 zile
+
+Abordarea algoritmică:
+		Implementarea consta intr-o clasa principala ChessBoard in care am definit
+	o matrice de tip Square. Clasa square reprezinta un patrat de pe tabla de sah
+	si se caracterizeaza prin indicele de linie si coloana al pozitiei sale pe
+	tabla si prin piesa pe care o are. Pentru a reprezenta fiecare piesa ne-am
+	folosit de o clasa abstracta "Piece". Fiecare dintre celelalte piese mosteneste
+	aceasta clasa si implementeaza metodele move si force_move. Piese precum regele
+	sau pionul au atribute suplimentrare pentru a putea tine cont de anumite
+	situatii: pionul poate fi capturat en passant sau regele se afla in sah.
+	In metoda move se muta o piesa de la pozitia curenta la o alta pozitia prin
+	calculul posibilitatilor de mutare. In force-move, piesa se muta de pe pozitia
+	curenta direct la pozitia trimisa ca parametru daca este posibil.
+
+	Mutarea pieselor am implementat-o in clasa fiecarei piese in functia "move",
+	iar cand am apelat-o ne-am folosit de legarea dinamica. Alegerea mutarilor
+	pieselor se face in felul urmator: Din toate directiile disponibile in care
+	se poate deplasa, se alege directia in care se poate lua piesa cu scorul cel
+	mai mare, astfel incat piesa sa nu iasa de pe tabla. Daca piesa nu poate
+	captura nimic, se deplaseaza maxim in prima directie libera. De exemplu,
+	pentru nebun, daca acesta se poate deplasa pe toate diagonalele, va incerca
+	sa captureze pe toate diagonalele si in caz ca va putea sa captureze ceva,
+	se va duce pe diagonala in care captureaza piesa cu scor maxim. In caz ca nu
+	se poate captura pe nicio diagonala, nebunul se va duce maxim pe prima diagonala.
+	Acelasi comportament il are si turnul, regina, calul, pionul, in sensul ca
+	incearca sa captureze pe toate pozitiile disponibile (in functie de piesa),
+	alege piesa cu scor maxim, sau se deplaseaza maxim pe prima pozitie disponibila.
+	    Promovarea pionului in Regina/Cal/Nebun/Turn se face random in clasa BPawn/
+	WPawn cu ajutorul metodei random_Promotion.
+
+	Jocul de sah:
+		Inainte de orice mutare se verifica status-ul regelui cu ajutorul metodei
+	is_in_checked din clasa regelui BKing/WKing. Aceasta metoda va returna un 
+	ArrayList de ArrayList-uri: primul element va fi o lista cu pozitiile de unde
+	isi ia regele sah, iar al doilea fiind pozitiile pe care regele nu se va putea
+	muta. Pe urma vom genera toate pozitiile disponibile pentru mutarea regelui,
+	cu metoda verify_moves. In cazul in care regele nu primeste sah, vom genera
+	o mutare de la alta piesa cu metoda randomPiece, iar daca nicio alta piesa
+	nu poate fi mutata vom incerca sa mutam regele in cazul in care nu este posibil
+	vom da resign.
+		In cazul in care regele isi ia sah doar de la alta piesa, atunci vom cauta
+	o alta piesa care sa captureze piesa care provoaca starea de sah sau sa mute
+	in culoarul dintre rege si acea piesa (metoda "take_or_enter_attack"). In cazul
+	in care nu se gaseste o astfel de piesa, regele va trebui sa mute intr-o
+	pozitie valabila. In caz contrar, se trimite resign la xboard.
+		In cazul in care regele isi ia sah de la mai multe piese, atunci acesta va
+	fi obligat sa mutam intr-o pozitie disponibila. In caz contrar, se va trimite
+	resign la xboard.
+		De asemenea, jocul se termina cand regele va primi de 3 ori sah de la o
+	piesa inamica si daca primeste sah mat.
+
+
+	En-passant:
+	    Pentru a tine cont de capturarea en passant ne folosit de un flag care are
+	valoarea true atunci cand pionul a fost mutat de pe pozitia initiala doua patrate
+	in fata. In cazul in care pionul nu este capturat de o piesa inamica in tura
+	imediat urmatoare, flagul se va reseta la false. De asemenea, se tine cont si de
+	cazul in care pionul ajunge pe pozitia cu 2 patrate in fata prin doua mutari
+	succesive in loc de o singura mutare, tot pentru a se evita o capturare ilegala.
+
+	Rocada mica/mare:
+		In metoda RandomPiece din clasa ChessBoard, verific daca este posibila rocada
+	inainte de a misca orice alt pion ales "random" (Botul va alege tot timpul ultima
+	piesa care poate fi mutata, cea mai indepartata). Am ales o metoda generala
+	pentru rocada, castling_function, pentru a ne modulariza codul. Pentru rocada mica
+	verificam doar cu regele daca mutarile sunt posibile, iar pentru rocada mare am
+	mai pus o conditie sa verifice si casuta de langa turn. Mutam fictiv regele si
+	apelam functia de is_in_checked care ne intoarce positiile de unde primim sah. 
+	Daca nu primim continuam si verificam la final daca regele a ajuns in pozitia
+	dorita. Atunci vom interschimba regele si turnul.
+		
+
+Complexitate:
+		Pentru orice cautare in matrice vom avea O(k) = O(1), care este maxim 8^2.
+	Pentru rege, avem functia is_in_checked, care verfica toate directiile. Si aceasta
+	este constransa de casutele tablei de sah si astfel tot in timp constant se vor
+	face operatiile => O(1).
+		Terminarea jocului este constransa de cate mutari se vor face (s mutari).
+	Din acest lucru va rezulta ca vom avea O(s * 1) = O(s)
+
+
