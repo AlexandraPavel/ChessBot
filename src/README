@@ -1,13 +1,5 @@
 Proiect PA
 
-Nume Echipa : SkyForce
-
-Echipa : 
-	Grigore Cosmin 322CC
-	Mantu David Nicolae 322CC
-	Pavel Elena Alexandra 322CC
-	Rosoga Ionut Cristian 322CC
-
 Instructiuni de compilare:
 	Proiectul se compileaza cu comanda "javac \*.java" din Makefile.
 	Pentru a porni jocul, se ruleaza comanda "make build". Pentru a crea
